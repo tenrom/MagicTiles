@@ -15,7 +15,7 @@ let PxSpeed=10
 
 function vibrer(){
     if (window.navigator.vibrate){
-        window.navigator.vibrate(10)
+        window.navigator.vibrate(50)
     }
 }
 
