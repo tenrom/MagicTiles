@@ -6,7 +6,6 @@ class TileElement extends HTMLElement{
         super()
     }
     OnClickTile(){
-        console.log("destroy")
         
         vibrer()
         clearInterval(this.idTimer)
@@ -34,7 +33,6 @@ class TileElement extends HTMLElement{
         this.style.gridColumn=this.getAttribute('column')
         this.style.gridRow=1
 
-        console.log('hello')
         
         if (!this.style.transform){
             this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
