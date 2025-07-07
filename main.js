@@ -28,3 +28,11 @@ function ChangeSpeed(s){
 // Change Speed document.getElementsByTagName('video')[0].playbackRate=0.5 
 
 
+
+
+// Change "{}" to your options:
+// https://github.com/sampotts/plyr/#options
+const player = new Plyr('#player', {});
+
+// Expose player so it can be used from the console
+window.player = player;

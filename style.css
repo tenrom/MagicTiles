@@ -27,3 +27,8 @@ body,html{
     grid-template-rows: 1fr;
     overflow: hidden;
 }
+
+.container {
+	margin: 20px auto;
+	max-width: 500px;
+}
