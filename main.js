@@ -20,10 +20,15 @@ function vibrer(){
 }
 
 
+function Play(){
+    document.getElementsByClassName('ytp-play-button')[0].click()
+}
 
+function ChangeSpeed(s){
+    document.getElementsByTagName('video')[0].playbackRate=s
+}
 
-
-// Play Pause document.getElementById('play-pause-button').click()
+// Play Pause document.getElementsByClassName('ytp-play-button')[0].click()
 // Reset document.getElementsByClassName('previous-button')[0].click()
 // Change Speed document.getElementsByTagName('video')[0].playbackRate=0.5 
 
