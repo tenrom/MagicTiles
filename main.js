@@ -19,9 +19,14 @@ function vibrer(){
     }
 }
 
+function getElementByXpath(path) {
+  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+}
+
+
 
 function Play(){
-    document.getElementsByClassName('ytp-play-button')[0].click()
+    getElementByXpath('/html/body/div/div/div[5]/button').click()
 }
 
 function ChangeSpeed(s){
