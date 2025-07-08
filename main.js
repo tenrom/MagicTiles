@@ -20,19 +20,25 @@ function vibrer(){
 
 
 function ChangeSpeed(s){
-    document.getElementsByTagName('video')[0].playbackRate=s
+    player.restart()
+    player.media.playbackRate=s
 }
 
-// Play Pause document.getElementsByClassName('ytp-play-button')[0].click()        .getElementsByClassName('ytp-large-play-button')[0].click()
-// Reset document.getElementsByClassName('previous-button')[0].click()
-// Change Speed document.getElementsByTagName('video')[0].playbackRate=0.5 
 
 
-
-
-// Change "{}" to your options:
-// https://github.com/sampotts/plyr/#options
-const player = new Plyr('#player', {});
-
-// Expose player so it can be used from the console
+const player = new Plyr('#player',{});
 window.player = player;
+player.play()
+
+
+
+
+
+
+
+
+
+
+// Play Pause document.getElementsByClassName('container')[0].querySelector('div').click()         player.play() player.pause()
+// Reset document.getElementsByClassName('previous-button')[0].click()                             player.restart()
+// Change Speed document.getElementsByTagName('video')[0].playbackRate=0.5                         player.media.playbackRate=2
