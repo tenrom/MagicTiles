@@ -28,7 +28,12 @@ function ChangeSpeed(s){
 
 const player = new Plyr('#player',{});
 window.player = player;
-document.getElementsByClassName('plyr__control')[0].click()
+
+
+document.body.addEventListener('click',()=>{
+    document.getElementsByClassName('plyr__control')[0].click()
+})
+
 
 
 
