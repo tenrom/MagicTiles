@@ -42,7 +42,10 @@ class TileElement extends HTMLElement{
         this.style.gridRow=1
 
         if (this.getAttribute('first')!=="true"){
-                        
+            this.innerHTML=`
+            <div class="innertile"><div>
+            `
+
             if (!this.style.transform){
                 this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
             }
@@ -62,10 +65,9 @@ class TileElement extends HTMLElement{
         }else{
             this.style.transform=`translateY(${document.body.clientHeight/2}px)`
             this.innerHTML=`
-            <h2 style="color:white;font-size:3em;pointer-events:none">Play</h2>
+            <div class="innertile firsttile"><h2 style="color:white;font-size:5vh;pointer-events:none">Play</h2><div>
             `
 
-            this.classList.add('firsttile')
         }
     }
 }
