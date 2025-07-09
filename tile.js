@@ -37,7 +37,13 @@ class TileElement extends HTMLElement{
         
         this.classList.add('tile')
 
-        this.addEventListener('mousedown',()=>{this.OnClickTile()})
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            this.addEventListener('touchstart',()=>{this.OnClickTile()})
+        }else{
+            this.addEventListener('mousedown',()=>{this.OnClickTile()})
+        }
+        
         this.style.gridColumn=this.getAttribute('column')
         this.style.gridRow=1
 
