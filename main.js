@@ -24,12 +24,22 @@ function ChangeSpeed(s){
     player.media.playbackRate=s
 }
 
+function Load(id){
+    player.source = {
+        type: 'video',
+        sources: [
+            {
+                src: id,
+                provider: 'youtube',
+            },
+        ],
+    };
+}
 
-
-const player = new Plyr('#player',{});
+const player = new Plyr('#player',{'autoplay':true,"mute":true});
 window.player = player;
 
-player.embed.Mute()
+
 
 
 player.addEventListener('ready',()=>{
