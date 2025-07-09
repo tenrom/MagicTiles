@@ -50,7 +50,7 @@ setInterval(()=>{
             GameTime=0
         }
     }
-},1)
+},10)
 
 
 
