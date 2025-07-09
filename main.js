@@ -29,16 +29,15 @@ function ChangeSpeed(s){
 const player = new Plyr('#player',{});
 window.player = player;
 
+player.embed.Mute()
 
-document.body.addEventListener('click',()=>{
-    document.getElementsByClassName('plyr__control')[0].click()
+
+player.addEventListener('ready',()=>{
+    document.body.addEventListener('click',()=>{
+        document.getElementsByClassName('plyr__control')[0].click()
+        player.embed.unMute()
+    })
 })
-
-
-
-
-
-
 
 
 
@@ -47,3 +46,5 @@ document.body.addEventListener('click',()=>{
 // Play Pause document.getElementsByClassName('container')[0].querySelector('div').click()         player.play() player.pause()
 // Reset document.getElementsByClassName('previous-button')[0].click()                             player.restart()
 // Change Speed document.getElementsByTagName('video')[0].playbackRate=0.5                         player.media.playbackRate=2
+
+// Mute/Unmute player.embed.Mute() / player.embed.unMute() 
