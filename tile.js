@@ -7,9 +7,17 @@ class TileElement extends HTMLElement{
     }
     OnClickTile(){
         
-        vibrer()
-        clearInterval(this.idTimer)
-        this.remove()
+        if (this.getAttribute('first')!=="true"){
+            vibrer()
+            clearInterval(this.idTimer)
+            this.remove()
+        }else{
+            vibrer()
+            playing=true
+            document.getElementsByClassName('plyr__control')[0].click()
+            player.embed.unMute()
+            this.remove()
+        }
 
     }
     MoveDown(){
@@ -33,22 +41,32 @@ class TileElement extends HTMLElement{
         this.style.gridColumn=this.getAttribute('column')
         this.style.gridRow=1
 
-        
-        if (!this.style.transform){
-            this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
-        }
-        this.goUp=false
-        this.idTimer=setInterval(()=>{
-            this.MoveDown()
-            if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=document.body.clientHeight){
-                clearInterval(this.idTimer)
-                this.remove()
+        if (this.getAttribute('first')!=="true"){
+                        
+            if (!this.style.transform){
+                this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
             }
+            this.goUp=false
+            this.idTimer=setInterval(()=>{
+                this.MoveDown()
+                if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=document.body.clientHeight){
+                    clearInterval(this.idTimer)
+                    this.remove()
+                }
 
-            if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=-PxSpeed && Number(this.style.transform.substring(11,this.style.transform.length-3))<0){
-                NewLine()
-            }
-        },10)
+                // if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=-PxSpeed && Number(this.style.transform.substring(11,this.style.transform.length-3))<0){
+                //     NewLine()
+                // }
+            },10)
+
+        }else{
+            this.style.transform=`translateY(${document.body.clientHeight/2}px)`
+            this.innerHTML=`
+            <h2 style="color:white;font-size:3em;pointer-events:none">Play</h2>
+            `
+
+            this.classList.add('firsttile')
+        }
     }
 }
 

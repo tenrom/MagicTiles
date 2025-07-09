@@ -3,11 +3,16 @@
 let rng=new Math.seedrandom('Hello World')
 function NewLine(){
     n=Math.round(rng()*3)+1
-    if (n===Number(document.getElementsByClassName('tile')[document.getElementsByClassName('tile').length-1].getAttribute('column'))){
-        document.getElementsByClassName('tile')[document.getElementsByClassName('tile').length-1].GrowUp()
+    if (document.getElementsByClassName('tile').length){
+        if (n===Number(document.getElementsByClassName('tile')[document.getElementsByClassName('tile').length-1].getAttribute('column'))){
+            document.getElementsByClassName('tile')[document.getElementsByClassName('tile').length-1].GrowUp()
+        }else{
+            document.getElementById("Game").innerHTML+=`<game-tile column=${n}></game-tile>`
+        }
     }else{
         document.getElementById("Game").innerHTML+=`<game-tile column=${n}></game-tile>`
     }
+    
 }
 
 
@@ -36,18 +41,22 @@ function Load(id){
     };
 }
 
+setInterval(()=>{
+    console.log(GameTime)
+    if (playing){
+        GameTime+=PxSpeed
+        if (GameTime>=document.body.clientHeight/4-PxSpeed/2 && GameTime<=document.body.clientHeight/4+PxSpeed/2){
+            NewLine()
+            GameTime=0
+        }
+    }
+},10)
+
+
+
 const player = new Plyr('#player',{'autoplay':true,"mute":true});
 window.player = player;
 
-
-
-
-player.addEventListener('ready',()=>{
-    document.body.addEventListener('click',()=>{
-        document.getElementsByClassName('plyr__control')[0].click()
-        player.embed.unMute()
-    })
-})
 
 
 
