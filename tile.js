@@ -39,11 +39,13 @@ class TileElement extends HTMLElement{
             this.istouch=true
             this.thumb.removeEventListener('mousedown',e1)
             activeid.push(this.id)
+            UpdateBar(this.id)
         }
         let e2=(e)=>{
             this.istouch=true
             this.thumb.removeEventListener('touchstart',e2)
             activeid.push(this.id)
+            UpdateBar(this.id)
         }
 
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);

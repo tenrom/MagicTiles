@@ -32,11 +32,21 @@ ctx3.stroke()
 
 
 function UpdateBar(id){
-    let t=document.getElementById(id).getBoundingClientRect()
+    let t=null
     let hitmargin=window.getComputedStyle(document.body).getPropertyValue('--hit-margin')
+    if (document.getElementById(id).getElementsByClassName('thumb')[0]){
+        t=document.getElementById(id).getElementsByClassName('thumb')[0].getBoundingClientRect()
+        let a=t.y-(document.body.clientHeight/8)*0.7
+        let b=t.y+t.height+(document.body.clientHeight/8)*0.7
+    }else{
+        t=document.getElementById(id).getBoundingClientRect()
+        let a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))-(document.body.clientHeight/8)*0.7
+        let b=t.y+t.height-Number(hitmargin.slice(0,hitmargin.length-2))+(document.body.clientHeight/8)*0.7
+    }
+    
 
-    let a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))
-    let b=t.y+t.height-Number(hitmargin.slice(0,hitmargin.length-2))
+    let a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))-(document.body.clientHeight/8)*0.7
+    let b=t.y+t.height-Number(hitmargin.slice(0,hitmargin.length-2))+(document.body.clientHeight/8)*0.7
 
     // DEBUG
     // ctx3.beginPath()
