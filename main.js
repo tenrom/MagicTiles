@@ -142,3 +142,7 @@ document.addEventListener('touchend',()=>{
 })
 
 
+document.addEventListener('error',(e)=>{
+    console.log(e)
+    document.getElementById('text').innerText+=e
+})

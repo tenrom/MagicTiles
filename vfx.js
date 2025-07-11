@@ -32,27 +32,31 @@ ctx3.stroke()
 
 
 function UpdateBar(e){
-    let t=e.originalTarget.getBoundingClientRect()
-    let hitmargin=window.getComputedStyle(document.body).getPropertyValue('--hit-margin')
+    console.log(e)
+    if (e.originalTarget){
+        let t=e.originalTarget.getBoundingClientRect()
+        let hitmargin=window.getComputedStyle(document.body).getPropertyValue('--hit-margin')
 
-    let a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))
-    let b=t.y+t.height-Number(hitmargin.slice(0,hitmargin.length-2))
+        let a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))
+        let b=t.y+t.height-Number(hitmargin.slice(0,hitmargin.length-2))
 
-    // DEBUG
-    // ctx3.beginPath()
-    // ctx3.arc(t.x+t.width/2,a,10,0,Math.PI*2)
-    // ctx3.arc(t.x+t.width/2,b,10,0,Math.PI*2)
-    // ctx3.fillStyle = 'orange'
-    // ctx3.fill()
+        // DEBUG
+        // ctx3.beginPath()
+        // ctx3.arc(t.x+t.width/2,a,10,0,Math.PI*2)
+        // ctx3.arc(t.x+t.width/2,b,10,0,Math.PI*2)
+        // ctx3.fillStyle = 'orange'
+        // ctx3.fill()
 
-    if (BarY<a || b<BarY){
-        ctx3.clearRect(0,0,canvas3.width,canvas3.height)
-        BarY=((a+b)/2).clamp(0,document.body.clientHeight*0.8)
-        ctx3.beginPath()
-        ctx3.lineWidth=5
-        ctx3.moveTo(0, BarY)
-        ctx3.lineTo(document.body.clientWidth, BarY)
-        ctx3.strokeStyle='white'
-        ctx3.stroke()
+        if (BarY<a || b<BarY){
+            ctx3.clearRect(0,0,canvas3.width,canvas3.height)
+            BarY=((a+b)/2).clamp(document.body.clientHeight/4*0.8,document.body.clientHeight*0.8)
+            ctx3.beginPath()
+            ctx3.lineWidth=5
+            ctx3.moveTo(0, BarY)
+            ctx3.lineTo(document.body.clientWidth, BarY)
+            ctx3.strokeStyle='white'
+            ctx3.stroke()
+        }
     }
+    
 }
