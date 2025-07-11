@@ -140,3 +140,5 @@ document.addEventListener('touchstart',()=>{
 document.addEventListener('touchend',()=>{
     isclicking=false
 })
+
+

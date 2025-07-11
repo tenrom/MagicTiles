@@ -5,17 +5,19 @@ class TileElement extends HTMLElement{
         
         super()
     }
-    OnClickTile(){
+    OnClickTile(e){
         
         if (this.getAttribute('first')!=="true"){
             vibrer()
             clearInterval(this.idTimer)
+            UpdateBar(e)
             this.remove()
         }else{
             vibrer()
             playing=true
             document.getElementsByClassName('plyr__control')[0].click()
             player.embed.unMute()
+            UpdateBar(e)
             this.remove()
         }
 
@@ -93,6 +95,7 @@ class TileElement extends HTMLElement{
         this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))-document.body.clientHeight/4)+"px)"
 
     }
+    
     connectedCallback(){
         
         this.classList.add('tile')
@@ -179,10 +182,6 @@ class TileElement extends HTMLElement{
                     clearInterval(this.idTimer)
                     this.remove()
                 }
-
-                // if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=-PxSpeed && Number(this.style.transform.substring(11,this.style.transform.length-3))<0){
-                //     NewLine()
-                // }
             },10)
 
         }else{
