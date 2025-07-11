@@ -10,14 +10,14 @@ class TileElement extends HTMLElement{
         if (this.getAttribute('first')!=="true"){
             vibrer()
             clearInterval(this.idTimer)
-            UpdateBar(e)
+            UpdateBar(this)
             this.remove()
         }else{
             vibrer()
             playing=true
             document.getElementsByClassName('plyr__control')[0].click()
             player.embed.unMute()
-            UpdateBar(e)
+            UpdateBar(this)
             this.remove()
         }
 

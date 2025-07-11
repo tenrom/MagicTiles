@@ -32,9 +32,8 @@ ctx3.stroke()
 
 
 function UpdateBar(e){
-    console.log(e)
-    if (e.originalTarget){
-        let t=e.originalTarget.getBoundingClientRect()
+    if (e){
+        let t=e.getBoundingClientRect()
         let hitmargin=window.getComputedStyle(document.body).getPropertyValue('--hit-margin')
 
         let a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))
