@@ -21,41 +21,163 @@ class TileElement extends HTMLElement{
 
     }
     MoveDown(){
-        // console.log(this.style.transform)
         this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
+        console.log(activeid)
+        
+        if (this.style.height){
+            if (this.istouch){
+                let t=this.getElementsByClassName('thumb')[0]
+                let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
+                t.style.transform='translateY('+String(n)+"px)"
+            }
+        }
+    }
+    ActiveThumb(){
+        
+        let e1=(e)=>{
+            this.istouch=true
+            this.thumb.removeEventListener('mousedown',e1)
+            console.log(this.id)
+            activeid=this.id
+        }
+        let e2=(e)=>{
+            this.istouch=true
+            this.thumb.removeEventListener('touchstart',e2)
+            console.log(this.id)
+            activeid=this.id
+        }
+
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            this.removeEventListener('touchstart',this.OnClickTile)
+            this.thumb.addEventListener('touchstart',e2)
+
+            this.thumb.addEventListener('touchend',(e)=>{
+                this.istouch=false
+                activeid=null
+                clickids.push(this.id)
+            })
+            // this.thumb.addEventListener('mouseleave',(e)=>{
+            //     this.istouch=false
+            //     activeid=null
+            //     clickids.push(this.id)
+            // })
+            
+        }else{
+            this.removeEventListener('mousedown',this.OnClickTile)
+            this.thumb.addEventListener('mousedown',e1)
+
+            this.thumb.addEventListener('mouseup',(e)=>{
+                this.istouch=false
+                activeid=null
+                clickids.push(this.id)
+            })
+            this.thumb.addEventListener('mouseleave',(e)=>{
+                this.istouch=false
+                activeid=null
+                clickids.push(this.id)
+            })
+        }
     }
     GrowUp(){
         if (!this.style.height){
             this.style.height="50%"
+            this.size=1
+            this.querySelector('div').innerHTML=`
+                <div class='thumb' style='height:${document.body.clientHeight/4}px;'></div>
+            `
+            this.thumb=this.getElementsByClassName('thumb')[0]
+            
+            this.ActiveThumb()
         }else{
             this.style.height="calc(25% + "+this.style.height+")"
+            this.size+=1
         }
+        this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))-document.body.clientHeight/4)+"px)"
 
-        this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))-document.body.clientHeight/4)+"px)"        
     }
     connectedCallback(){
         
         this.classList.add('tile')
 
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (isMobile) {
-            this.addEventListener('touchstart',()=>{this.OnClickTile()})
+        if (!this.getElementsByClassName('thumb')[0]){
+            this.istouch=false
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                this.addEventListener('touchstart',this.OnClickTile)
+                document.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                }, false); 
+            }else{
+                this.addEventListener('mousedown',this.OnClickTile)
+            }
         }else{
-            this.addEventListener('mousedown',()=>{this.OnClickTile()})
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (!isMobile) {
+                this.thumb=this.getElementsByClassName('thumb')[0]
+                if (activeid){
+                    if (isclicking && activeid===this.id){
+                        console.log('YOOO')
+                        this.istouch=true
+                        this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
+
+                        this.thumb.addEventListener('mouseup',(e)=>{
+                            this.istouch=false
+                            activeid=null
+                            clickids.push(this.id)
+                        })
+                        this.thumb.addEventListener('mouseleave',(e)=>{
+                            this.istouch=false
+                            activeid=null
+                            clickids.push(this.id)
+                        })
+                    }
+                }
+                if (!clickids.includes(this.id)){
+                    this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
+                    this.ActiveThumb()
+                }
+            }else{
+                this.thumb=this.getElementsByClassName('thumb')[0]
+                if (activeid){
+                    if (isclicking && activeid===this.id){
+                        console.log('YOOO')
+                        this.istouch=true
+                        this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
+
+                        this.thumb.addEventListener('touchend',(e)=>{
+                            this.istouch=false
+                            activeid=null
+                            clickids.push(this.id)
+                        })
+                        // this.thumb.addEventListener('mouseleave',(e)=>{
+                        //     this.istouch=false
+                        //     activeid=null
+                        //     clickids.push(this.id)
+                        // })
+                    }
+                }
+                if (!clickids.includes(this.id)){
+                    this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
+                    this.ActiveThumb()
+                }
+            }
         }
-        
+
         this.style.gridColumn=this.getAttribute('column')
         this.style.gridRow=1
 
         if (this.getAttribute('first')!=="true"){
-            this.innerHTML=`
-            <div class="innertile"><div>
-            `
+            if (!this.getElementsByClassName('thumb')[0]){
+                this.innerHTML=`
+                <div class="innertile"><div>
+                `
+            }
+            
 
             if (!this.style.transform){
                 this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
             }
-            this.goUp=false
             this.idTimer=setInterval(()=>{
                 this.MoveDown()
                 if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=document.body.clientHeight){

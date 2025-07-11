@@ -1,4 +1,4 @@
-
+let index=0
 
 let rng=new Math.seedrandom('Hello World')
 function NewLine(){
@@ -7,10 +7,12 @@ function NewLine(){
         if (n===Number(document.getElementsByClassName('tile')[document.getElementsByClassName('tile').length-1].getAttribute('column'))){
             document.getElementsByClassName('tile')[document.getElementsByClassName('tile').length-1].GrowUp()
         }else{
-            document.getElementById("Game").innerHTML+=`<game-tile column=${n}></game-tile>`
+            index++
+            document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
         }
     }else{
-        document.getElementById("Game").innerHTML+=`<game-tile column=${n}></game-tile>`
+        index++
+        document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
     }
     
 }
@@ -41,8 +43,8 @@ function Load(id){
     };
 }
 
-setInterval(()=>{
-    console.log(GameTime)
+
+let intid=setInterval(()=>{
     if (playing){
         GameTime+=PxSpeed
         if (GameTime>=document.body.clientHeight/4-PxSpeed/2 && GameTime<=document.body.clientHeight/4+PxSpeed/2){
@@ -67,3 +69,23 @@ window.player = player;
 // Change Speed document.getElementsByTagName('video')[0].playbackRate=0.5                         player.media.playbackRate=2
 
 // Mute/Unmute player.embed.Mute() / player.embed.unMute() 
+
+
+// setTimeout(()=>{document.getElementById('truc').GrowUp()},200)
+
+
+document.addEventListener('mousedown',()=>{
+    isclicking=true
+})
+
+document.addEventListener('mouseup',()=>{
+    isclicking=false
+})
+
+document.addEventListener('touchstart',()=>{
+    isclicking=true
+})
+
+document.addEventListener('touchend',()=>{
+    isclicking=false
+})
