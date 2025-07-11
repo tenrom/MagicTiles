@@ -51,12 +51,12 @@ class TileElement extends HTMLElement{
 
             this.thumb.addEventListener('touchend',(e)=>{
                 this.istouch=false
-                activeid=null
+                activeid.slice(activeid.indexOf(this.id),this.id)
                 clickids.push(this.id)
             })
             // this.thumb.addEventListener('mouseleave',(e)=>{
             //     this.istouch=false
-            //     activeid=null
+            //     activeid.slice(activeid.indexOf(this.id),this.id)
             //     clickids.push(this.id)
             // })
             
@@ -66,12 +66,12 @@ class TileElement extends HTMLElement{
 
             this.thumb.addEventListener('mouseup',(e)=>{
                 this.istouch=false
-                activeid=null
+                activeid.slice(activeid.indexOf(this.id),this.id)
                 clickids.push(this.id)
             })
             this.thumb.addEventListener('mouseleave',(e)=>{
                 this.istouch=false
-                activeid=null
+                activeid.slice(activeid.indexOf(this.id),this.id)
                 clickids.push(this.id)
             })
         }
@@ -113,18 +113,18 @@ class TileElement extends HTMLElement{
             if (!isMobile) {
                 this.thumb=this.getElementsByClassName('thumb')[0]
                 if (activeid){
-                    if (isclicking && activeid===this.id){
+                    if (isclicking && activeid.includes(this.id)){
                         this.istouch=true
                         this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
 
                         this.thumb.addEventListener('mouseup',(e)=>{
                             this.istouch=false
-                            activeid=null
+                            activeid.slice(activeid.indexOf(this.id),this.id)
                             clickids.push(this.id)
                         })
                         this.thumb.addEventListener('mouseleave',(e)=>{
                             this.istouch=false
-                            activeid=null
+                            activeid.slice(activeid.indexOf(this.id),this.id)
                             clickids.push(this.id)
                         })
                     }
@@ -135,19 +135,19 @@ class TileElement extends HTMLElement{
                 }
             }else{
                 this.thumb=this.getElementsByClassName('thumb')[0]
-                if (activeid){
-                    if (isclicking && activeid===this.id){
+                if (activeid.length){
+                    if (isclicking && activeid.includes(this.id) && !clickids.includes(this.id)){
                         this.istouch=true
                         this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
 
                         this.thumb.addEventListener('touchend',(e)=>{
                             this.istouch=false
-                            activeid=null
+                            activeid.slice(activeid.indexOf(this.id),this.id)
                             clickids.push(this.id)
                         })
                         // this.thumb.addEventListener('mouseleave',(e)=>{
                         //     this.istouch=false
-                        //     activeid=null
+                        //     activeid.slice(activeid.indexOf(this.id),this.id)
                         //     clickids.push(this.id)
                         // })
                     }

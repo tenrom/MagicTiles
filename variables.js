@@ -1,7 +1,7 @@
 let PxSpeed=10
 let GameTime=0
 let playing=false
-let activeid=null
+let activeid=[]
 let isclicking=false
 let clickids=[]
 let lastTile=-1

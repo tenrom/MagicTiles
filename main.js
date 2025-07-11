@@ -28,11 +28,11 @@ function NewLine(){
             lastTileid.push(index)
             if (n>4){
                 let c={'5':['1','3'],'6':['2','4']}
-                document.getElementById("Game").innerHTML+=`<game-tile column=${c[n][0]} id="${index}"></game-tile>`
+                let p1=`<game-tile column=${c[n][0]} id="${index}"></game-tile>`
 
                 index++
                 lastTileid.push(index)
-                document.getElementById("Game").innerHTML+=`<game-tile column=${c[n][1]} id="${index}"></game-tile>`
+                document.getElementById("Game").innerHTML+=p1+`<game-tile column=${c[n][1]} id="${index}"></game-tile>`
             }else {
                 document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
             }
@@ -44,11 +44,11 @@ function NewLine(){
         lastTileid.push(index)
         if (n>4){
             let c={'5':['1','3'],'6':['2','4']}
-            document.getElementById("Game").innerHTML+=`<game-tile column=${c[n][0]} id="${index}"></game-tile>`
-            
+            let p1=`<game-tile column=${c[n][0]} id="${index}"></game-tile>`
+
             index++
             lastTileid.push(index)
-            document.getElementById("Game").innerHTML+=`<game-tile column=${c[n][1]} id="${index}"></game-tile>`
+            document.getElementById("Game").innerHTML+=p1+`<game-tile column=${c[n][1]} id="${index}"></game-tile>`
         }else {
             document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
         }
