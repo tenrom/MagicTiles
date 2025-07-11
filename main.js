@@ -1,23 +1,80 @@
+//--------------------------------------------------------------------//
+// Play Pause      |      player.play() / player.pause()              //
+// Reset           |      player.restart()                            //
+// Change Speed    |      player.media.playbackRate=2                 //
+// Mute/Unmute     |      player.embed.Mute() / player.embed.unMute() //
+//--------------------------------------------------------------------//
+
+
+// FUNCTIONS
+
 let index=0
 
-let rng=new Math.seedrandom('Hello World')
 function NewLine(){
-    n=Math.round(rng()*3)+1
-    if (document.getElementsByClassName('tile').length){
-        if (n===Number(document.getElementsByClassName('tile')[document.getElementsByClassName('tile').length-1].getAttribute('column'))){
-            document.getElementsByClassName('tile')[document.getElementsByClassName('tile').length-1].GrowUp()
+    n=getRandomCol(lastTile)
+    if (lastTile!==-1){
+        if (n===lastTile){
+            if (n>4){
+                document.getElementById(lastTileid[0]).GrowUp()
+                document.getElementById(lastTileid[1]).GrowUp()
+            }else{
+                document.getElementById(lastTileid[0]).GrowUp()
+            }
+            
         }else{
+            lastTileid=[]
+            lastTile=n
             index++
-            document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
+            lastTileid.push(index)
+            if (n>4){
+                let c={'5':['1','3'],'6':['2','4']}
+                document.getElementById("Game").innerHTML+=`<game-tile column=${c[n][0]} id="${index}"></game-tile>`
+
+                index++
+                lastTileid.push(index)
+                document.getElementById("Game").innerHTML+=`<game-tile column=${c[n][1]} id="${index}"></game-tile>`
+            }else {
+                document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
+            }
         }
     }else{
+        lastTileid=[]
+        lastTile=n
         index++
-        document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
+        lastTileid.push(index)
+        if (n>4){
+            let c={'5':['1','3'],'6':['2','4']}
+            document.getElementById("Game").innerHTML+=`<game-tile column=${c[n][0]} id="${index}"></game-tile>`
+            
+            index++
+            lastTileid.push(index)
+            document.getElementById("Game").innerHTML+=`<game-tile column=${c[n][1]} id="${index}"></game-tile>`
+        }else {
+            document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
+        }
     }
     
 }
 
+function FixSeed(seed){
+    rng=new Math.seedrandom(seed)
+}
 
+function getRandomCol(flastTile){
+    let pos={
+        '-1':['1','2','3','4','5','6'],
+        '1':['1','2','3','4','6'],
+        '2':['2','1','3','4','5'],
+        '3':['3','1','2','4','6'],
+        '4':['4','1','2','3','5'],
+        '5':['5','2','4','6'],
+        '6':['6','1','3','5']
+    }
+    console.log(flastTile)
+    let po=pos[String(flastTile)]
+
+    return po[Math.round(rng()*(po.length-1))]
+}
 
 function vibrer(){
     if (window.navigator.vibrate){
@@ -60,15 +117,9 @@ const player = new Plyr('#player',{'autoplay':true,"mute":true});
 window.player = player;
 
 
+FixSeed('Hello World')
 
 
-
-
-// Play Pause document.getElementsByClassName('container')[0].querySelector('div').click()         player.play() player.pause()
-// Reset document.getElementsByClassName('previous-button')[0].click()                             player.restart()
-// Change Speed document.getElementsByTagName('video')[0].playbackRate=0.5                         player.media.playbackRate=2
-
-// Mute/Unmute player.embed.Mute() / player.embed.unMute() 
 
 
 // setTimeout(()=>{document.getElementById('truc').GrowUp()},200)

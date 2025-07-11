@@ -22,7 +22,6 @@ class TileElement extends HTMLElement{
     }
     MoveDown(){
         this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
-        console.log(activeid)
         
         if (this.style.height){
             if (this.istouch){
@@ -37,13 +36,11 @@ class TileElement extends HTMLElement{
         let e1=(e)=>{
             this.istouch=true
             this.thumb.removeEventListener('mousedown',e1)
-            console.log(this.id)
             activeid=this.id
         }
         let e2=(e)=>{
             this.istouch=true
             this.thumb.removeEventListener('touchstart',e2)
-            console.log(this.id)
             activeid=this.id
         }
 
@@ -117,7 +114,6 @@ class TileElement extends HTMLElement{
                 this.thumb=this.getElementsByClassName('thumb')[0]
                 if (activeid){
                     if (isclicking && activeid===this.id){
-                        console.log('YOOO')
                         this.istouch=true
                         this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
 
@@ -141,7 +137,6 @@ class TileElement extends HTMLElement{
                 this.thumb=this.getElementsByClassName('thumb')[0]
                 if (activeid){
                     if (isclicking && activeid===this.id){
-                        console.log('YOOO')
                         this.istouch=true
                         this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
 
