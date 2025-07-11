@@ -36,12 +36,12 @@ class TileElement extends HTMLElement{
         let e1=(e)=>{
             this.istouch=true
             this.thumb.removeEventListener('mousedown',e1)
-            activeid=this.id
+            activeid.push(this.id)
         }
         let e2=(e)=>{
             this.istouch=true
             this.thumb.removeEventListener('touchstart',e2)
-            activeid=this.id
+            activeid.push(this.id)
         }
 
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -51,12 +51,12 @@ class TileElement extends HTMLElement{
 
             this.thumb.addEventListener('touchend',(e)=>{
                 this.istouch=false
-                activeid.slice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),this.id)
                 clickids.push(this.id)
             })
             // this.thumb.addEventListener('mouseleave',(e)=>{
             //     this.istouch=false
-            //     activeid.slice(activeid.indexOf(this.id),this.id)
+            //     activeid.splice(activeid.indexOf(this.id),this.id)
             //     clickids.push(this.id)
             // })
             
@@ -66,12 +66,12 @@ class TileElement extends HTMLElement{
 
             this.thumb.addEventListener('mouseup',(e)=>{
                 this.istouch=false
-                activeid.slice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),this.id)
                 clickids.push(this.id)
             })
             this.thumb.addEventListener('mouseleave',(e)=>{
                 this.istouch=false
-                activeid.slice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),this.id)
                 clickids.push(this.id)
             })
         }
@@ -119,12 +119,12 @@ class TileElement extends HTMLElement{
 
                         this.thumb.addEventListener('mouseup',(e)=>{
                             this.istouch=false
-                            activeid.slice(activeid.indexOf(this.id),this.id)
+                            activeid.splice(activeid.indexOf(this.id),this.id)
                             clickids.push(this.id)
                         })
                         this.thumb.addEventListener('mouseleave',(e)=>{
                             this.istouch=false
-                            activeid.slice(activeid.indexOf(this.id),this.id)
+                            activeid.splice(activeid.indexOf(this.id),this.id)
                             clickids.push(this.id)
                         })
                     }
@@ -142,12 +142,12 @@ class TileElement extends HTMLElement{
 
                         this.thumb.addEventListener('touchend',(e)=>{
                             this.istouch=false
-                            activeid.slice(activeid.indexOf(this.id),this.id)
+                            activeid.splice(activeid.indexOf(this.id),this.id)
                             clickids.push(this.id)
                         })
                         // this.thumb.addEventListener('mouseleave',(e)=>{
                         //     this.istouch=false
-                        //     activeid.slice(activeid.indexOf(this.id),this.id)
+                        //     activeid.splice(activeid.indexOf(this.id),this.id)
                         //     clickids.push(this.id)
                         // })
                     }
