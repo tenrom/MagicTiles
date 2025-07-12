@@ -30,6 +30,14 @@ class TileElement extends HTMLElement{
                 let t=this.getElementsByClassName('thumb')[0]
                 let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
                 t.style.transform='translateY('+String(n)+"px)"
+
+                if (n<=-this.size*(document.body.clientHeight/4) && !completeSliderids.includes(this.id)){
+                    scoretext.innerText=Number(scoretext.innerText)+2*this.size
+                    this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
+                    this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
+
+                    completeSliderids.push(this.id)
+                }
             }
         }
     }
@@ -86,6 +94,7 @@ class TileElement extends HTMLElement{
             this.size=1
             this.querySelector('div').innerHTML=`
                 <div class='thumb' style='height:${document.body.clientHeight/4}px;'></div>
+                <div class='ptsSliderInfo titillium-web-bold'></div>
             `
             this.thumb=this.getElementsByClassName('thumb')[0]
             
@@ -162,6 +171,13 @@ class TileElement extends HTMLElement{
                     this.ActiveThumb()
                 }
             }
+
+            if (completeSliderids.includes(this.id)){
+                this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
+                this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
+                this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
+            }
+            
         }
 
         this.style.gridColumn=this.getAttribute('column')
@@ -189,7 +205,7 @@ class TileElement extends HTMLElement{
         }else{
             this.style.transform=`translateY(${document.body.clientHeight/2}px)`
             this.innerHTML=`
-            <div class="innertile firsttile"><h2 style="color:white;font-size:5vh;pointer-events:none">Play</h2><div>
+            <div class="innertile firsttile"><h2 style="color:white;font-size:8vw;pointer-events:none" class="titillium-web-bold">PLAY</h2><div>
             `
 
         }

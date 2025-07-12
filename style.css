@@ -104,3 +104,94 @@ input,button,select{
     filter: blur(1px);
     opacity: 0.5;
 }
+
+.score{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 11vw;
+    letter-spacing: 0.5vw;
+    text-shadow: 1px 1px 1px rgb(253, 246, 180),-1px -1px 1px rgb(253, 246, 180),-1px 1px 1px rgb(253, 246, 180),1px -1px 1px rgb(253, 246, 180), 1px 1px 5px rgb(88, 88, 88),-1px -1px 5px rgb(88, 88, 88),-1px 1px 5px rgb(88, 88, 88),1px -1px 5px rgb(88, 88, 88);
+}
+
+.titillium-web-bold {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.div-info{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-info-avancement{
+    width: 100%;
+    height: 5vh;
+}
+
+.div-info-pts{
+    width:fit-content;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+    position: relative;
+}    
+.div-info-pts::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    background: var(--color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px transparent;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+}
+
+.div-info-pts::before {
+    background: none;
+    content: attr(data-text);
+    position: absolute;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke: 7px white;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+}
+
+.div-info-tile{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.text-mult{
+    color: white;
+    margin: -15px 0 0 0;
+    padding: 0;
+    text-shadow: 1px 1px 1px rgb(253, 246, 180),-1px -1px 1px rgb(253, 246, 180),-1px 1px 1px rgb(253, 246, 180),1px -1px 1px rgb(253, 246, 180), 1px 1px 3px rgb(88, 88, 88),-1px -1px 3px rgb(88, 88, 88),-1px 1px 3px rgb(88, 88, 88),1px -1px 3px rgb(88, 88, 88);
+}
+
+.ptsSliderInfo{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: -9.5vw;
+    color: white;
+    font-size: 6vw;
+    font-weight: 400;
+    text-shadow: 1px 1px 1px rgb(253, 246, 180),-1px -1px 1px rgb(253, 246, 180),-1px 1px 1px rgb(253, 246, 180),1px -1px 1px rgb(253, 246, 180), 1px 1px 2px rgb(88, 88, 88),-1px -1px 2px rgb(88, 88, 88),-1px 1px 2px rgb(88, 88, 88),1px -1px 2px rgb(88, 88, 88);
+    opacity: 0;
+}
