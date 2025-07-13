@@ -219,7 +219,6 @@ function addEmitterExplosion(x,y){
 
 animate()
 
-addEmitterExplosion(250,250)
 // TILES
 
 
