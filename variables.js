@@ -12,6 +12,7 @@ let scoretext=document.getElementById('text-Score')
 let multtext=document.getElementById('text-mult')
 let multperfect=0
 
+
 Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };

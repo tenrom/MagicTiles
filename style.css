@@ -78,9 +78,10 @@ body,html{
 
 /* https://cssgradient.io/ */
 
-input,button,select{
+input,button,select,div{
     -webkit-tap-highlight-color: transparent;
 }
+
 
 #canvas1{
     position: absolute;
@@ -103,6 +104,13 @@ input,button,select{
     height: 100%;
     filter: blur(1px);
     opacity: 0.5;
+}
+#canvas4{
+    position: absolute;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    filter: blur(1px);
 }
 
 .score{

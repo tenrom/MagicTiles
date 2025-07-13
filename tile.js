@@ -11,12 +11,16 @@ class TileElement extends HTMLElement{
             vibrer()
             clearInterval(this.idTimer)
             UpdateBar(this.id)
+            addEmitterExplosion(e.target.getBoundingClientRect().x+e.target.getBoundingClientRect().width/2,e.target.getBoundingClientRect().y+e.target.getBoundingClientRect().height/2)
+            addEmitterTile(this.querySelector('div'))
             this.remove()
         }else{
             vibrer()
             playing=true
             document.getElementsByClassName('plyr__control')[0].click()
             player.embed.unMute()
+            addEmitterExplosion(e.target.getBoundingClientRect().x+e.target.getBoundingClientRect().width/2,e.target.getBoundingClientRect().y+e.target.getBoundingClientRect().height/2)
+            addEmitterTile(this.querySelector('div'))
             this.remove()
         }
 
