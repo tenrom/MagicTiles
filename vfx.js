@@ -327,4 +327,3 @@ function addEmitterTile(element){
 
 
 animateTile()
-// addEmitterTile(document.getElementById('chose').querySelector('div'))
