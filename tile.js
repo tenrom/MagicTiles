@@ -17,7 +17,6 @@ class TileElement extends HTMLElement{
             playing=true
             document.getElementsByClassName('plyr__control')[0].click()
             player.embed.unMute()
-            UpdateBar(this.id)
             this.remove()
         }
 
@@ -27,16 +26,18 @@ class TileElement extends HTMLElement{
         
         if (this.style.height){
             if (this.istouch){
+                
                 let t=this.getElementsByClassName('thumb')[0]
                 let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
                 t.style.transform='translateY('+String(n)+"px)"
 
-                if (n<=-this.size*(document.body.clientHeight/4) && !completeSliderids.includes(this.id)){
-                    scoretext.innerText=Number(scoretext.innerText)+2*this.size
-                    this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
-                    this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
-
-                    completeSliderids.push(this.id)
+                if (this.istouch){
+                    if (t.getBoundingClientRect().y<=this.querySelector("div").getBoundingClientRect().y+2 && t.getBoundingClientRect().y!==0 && !completeSliderids.includes(this.id)){
+                        scoretext.innerText=Number(scoretext.innerText)+2*this.size
+                        this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
+                        this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
+                        completeSliderids.push(this.id)
+                    }   
                 }
             }
         }
@@ -111,6 +112,7 @@ class TileElement extends HTMLElement{
         
         this.classList.add('tile')
 
+        
         if (!this.getElementsByClassName('thumb')[0]){
             this.istouch=false
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -173,10 +175,13 @@ class TileElement extends HTMLElement{
             }
 
             if (completeSliderids.includes(this.id)){
+                this.istouch=false
                 this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
                 this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
                 this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
             }
+
+            this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
             
         }
 

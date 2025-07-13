@@ -48,12 +48,12 @@ function UpdateBar(id){
     let b=null
     if (document.getElementById(id).getElementsByClassName('thumb')[0]){
         t=document.getElementById(id).getElementsByClassName('thumb')[0].getBoundingClientRect()
-        a=t.y-(document.body.clientHeight/16)
-        b=t.y+t.height+(document.body.clientHeight/16)
+        a=t.y-(document.body.clientHeight/8)*0.8
+        b=t.y+t.height+(document.body.clientHeight/8)*0.8
     }else{
         t=document.getElementById(id).getBoundingClientRect()
-        a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))-(document.body.clientHeight/16)
-        b=t.y+t.height-Number(hitmargin.slice(0,hitmargin.length-2))+(document.body.clientHeight/16)
+        a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))-(document.body.clientHeight/8)**0.8
+        b=t.y+t.height-Number(hitmargin.slice(0,hitmargin.length-2))+(document.body.clientHeight/8)*0.8
     }
     
     // DEBUG
@@ -63,7 +63,7 @@ function UpdateBar(id){
     // ctx3.fillStyle = 'orange'
     // ctx3.fill()
 
-    if (BarY<a || b<BarY){
+    if ((BarY<a && BarY!==document.body.clientHeight*0.8) || (b<BarY && BarY!==document.body.clientHeight/4*0.8)){
         // COOL
         changeTileInfo(1)
         multperfect=0
@@ -99,6 +99,12 @@ window.addEventListener('resize',()=>{
 
 
 function changeTileInfo(n){
+    if (n===0){
+        document.getElementById('info1').style.display='none'
+        document.getElementById('info2').style.display='none'
+        document.getElementById('info3').style.display='none'
+        document.getElementById('text-mult').style.display='none'
+    }
     if (n===1){
         document.getElementById('info1').style.display='block'
         document.getElementById('info2').style.display='none'
@@ -119,7 +125,7 @@ function changeTileInfo(n){
     }
 }
 
-changeTileInfo(1)
+changeTileInfo(0)
 
 function UpdateMult(){
     multtext.innerText='x'+multperfect
