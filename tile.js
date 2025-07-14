@@ -25,7 +25,7 @@ class TileElement extends HTMLElement{
         }else{
             vibrer()
             playing=true
-            PxSpeed=30
+            PxSpeed=10
             document.getElementsByClassName('plyr__control')[0].click()
             player.embed.unMute()
             addEmitterExplosion(e.target.getBoundingClientRect().x+e.target.getBoundingClientRect().width/2,e.target.getBoundingClientRect().y+e.target.getBoundingClientRect().height/2)

@@ -1,4 +1,4 @@
-let PxSpeed=50
+let PxSpeed=10
 let GameTime=0
 let playing=false
 let activeid=[]
