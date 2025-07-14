@@ -47,7 +47,8 @@ function UpdateBar(id){
     let hitmargin=window.getComputedStyle(document.body).getPropertyValue('--hit-margin')
     let a=null
     let b=null
-    if (document.getElementById(id).getElementsByClassName('thumb')[0]){
+    if (document.getElementById(id).getElementsByClassName('thumb')[0] && document.getElementById(id).getElementsByClassName('thumb')[0].style.display!=='none'){
+        console.log(document.getElementById(id).getElementsByClassName('thumb')[0],document.getElementById(id).getElementsByClassName('thumb')[0].style.display!=='none')
         t=document.getElementById(id).getElementsByClassName('thumb')[0].getBoundingClientRect()
         a=t.y-(document.body.clientHeight/8)*0.8
         b=t.y+t.height+(document.body.clientHeight/8)*0.8
@@ -200,7 +201,12 @@ function animate(){
     ctx1.clearRect(0,0,canvas1.width,canvas1.height)
     
     for (let emitter=0;emitter<emittersArray.length;emitter++){
-        handleParticles(emitter)
+        if (emittersArray[emitter].length===0){
+            emittersArray.splice(emitter,1)
+            emitter--
+        }else{
+            handleParticles(emitter)
+        }
     }
     
     //requestAnimationFrame(animate)
@@ -287,7 +293,7 @@ function handleTileParticles(emitter){
     for (let i=0; i<emittersArrayTile[emitter].length; i++){
         emittersArrayTile[emitter][i].update()
         emittersArrayTile[emitter][i].draw()
-        if (emittersArrayTile[emitter][i].height<=emittersArrayTile[emitter][i].coefscale){
+        if (Number(emittersArrayTile[emitter][i].color.replaceAll('rgba(','').replaceAll(')','').split(',')[3])<=0){
             emittersArrayTile[emitter].splice(i,1)
             i--
         }
@@ -304,7 +310,12 @@ function animateTile(){
     ctx4.clearRect(0,0,canvas4.width,canvas4.height)
     
     for (let emitter=0;emitter<emittersArrayTile.length;emitter++){
-        handleTileParticles(emitter)
+        if (emittersArrayTile[emitter].length===0){
+            emittersArrayTile.splice(emitter,1)
+            emitter--
+        }else{
+            handleTileParticles(emitter)
+        }
     }
     
     //requestAnimationFrame(animateTile)

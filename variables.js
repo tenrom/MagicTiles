@@ -1,4 +1,4 @@
-let PxSpeed=10
+let PxSpeed=50
 let GameTime=0
 let playing=false
 let activeid=[]
@@ -11,6 +11,10 @@ let rng=null
 let scoretext=document.getElementById('text-Score')
 let multtext=document.getElementById('text-mult')
 let multperfect=0
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+let queue=[]
+
+
 
 
 Number.prototype.clamp = function(min, max) {

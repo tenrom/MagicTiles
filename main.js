@@ -8,7 +8,17 @@
 
 // FUNCTIONS
 
-let index=0
+
+function InitializeTiles(){
+    PxSpeed=document.body.clientHeight
+    for (let index=0;index<14;index++){
+        document.getElementById("Game").innerHTML+=`<game-tile column=1 id="${index}" style="display:none;"></game-tile>`
+        queue.push(index)
+    }
+}
+
+InitializeTiles()
+
 
 function NewLine(){
     n=getRandomCol(lastTile)
@@ -24,36 +34,66 @@ function NewLine(){
         }else{
             lastTileid=[]
             lastTile=n
-            index++
-            lastTileid.push(index)
             if (n>4){
                 let c={'5':['1','3'],'6':['2','4']}
-                let p1=`<game-tile column=${c[n][0]} id="${index}"></game-tile>`
 
-                index++
-                lastTileid.push(index)
-                document.getElementById("Game").innerHTML+=p1+`<game-tile column=${c[n][1]} id="${index}"></game-tile>`
+                let tile1=document.getElementById(queue[0])
+                queue.splice(0,1)
+                lastTileid.push(tile1.id)
+                tile1.setAttribute('column',c[n][0])
+
+                let tile2=document.getElementById(queue[0])
+                queue.splice(0,1)
+                lastTileid.push(tile2.id)
+                tile2.setAttribute('column',c[n][1])
+
+                tile1.Reset()
+                tile2.Reset()
             }else {
-                document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
+                let tile1=document.getElementById(queue[0])
+                queue.splice(0,1)
+                lastTileid.push(tile1.id)
+                tile1.setAttribute('column',n)
+
+                tile1.Reset()
             }
         }
     }else{
         lastTileid=[]
         lastTile=n
-        index++
-        lastTileid.push(index)
         if (n>4){
             let c={'5':['1','3'],'6':['2','4']}
-            let p1=`<game-tile column=${c[n][0]} id="${index}"></game-tile>`
 
-            index++
-            lastTileid.push(index)
-            document.getElementById("Game").innerHTML+=p1+`<game-tile column=${c[n][1]} id="${index}"></game-tile>`
+            let tile1=document.getElementById(queue[0])
+            queue.splice(0,1)
+            lastTileid.push(tile1.id)
+            tile1.setAttribute('column',c[n][0])
+
+            let tile2=document.getElementById(queue[0])
+            queue.splice(0,1)
+            lastTileid.push(tile2.id)
+            tile2.setAttribute('column',c[n][1])
+
+            tile1.Reset()
+            tile2.Reset()
         }else {
-            document.getElementById("Game").innerHTML+=`<game-tile column=${n} id="${index}"></game-tile>`
+            let tile1=document.getElementById(queue[0])
+            queue.splice(0,1)
+            lastTileid.push(tile1.id)
+            tile1.setAttribute('column',n)
+
+            tile1.Reset()
         }
+
+        
     }
     
+    if (clickids.length>=15){
+        clickids=clickids.slice(5,-1)
+    }
+    if (completeSliderids.length>=15){
+        completeSliderids=completeSliderids.slice(5,-1)
+    }
 }
 
 function FixSeed(seed){
@@ -127,7 +167,17 @@ FixSeed('Hello World')
 
 
 
-// setTimeout(()=>{document.getElementById('truc').GrowUp()},200)
+// setTimeout(()=>{
+//     document.getElementById('truc').GrowUp()
+
+//     setTimeout(()=>{
+//         document.getElementById('truc').Reset()
+
+//         setTimeout(()=>{
+//             document.getElementById('truc').GrowUp()
+//         },500)
+//     },1000)
+// },100)
 
 
 document.addEventListener('mousedown',()=>{
