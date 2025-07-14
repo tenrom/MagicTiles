@@ -9,7 +9,7 @@ class TileElement extends HTMLElement{
         
         if (this.getAttribute('first')!=="true"){
             vibrer()
-            clearInterval(this.idTimer)
+            // clearInterval(this.idTimer)
             UpdateBar(this.id)
             addEmitterExplosion(e.target.getBoundingClientRect().x+e.target.getBoundingClientRect().width/2,e.target.getBoundingClientRect().y+e.target.getBoundingClientRect().height/2)
             addEmitterTile(this.querySelector('div'))
@@ -25,7 +25,31 @@ class TileElement extends HTMLElement{
         }
 
     }
-    MoveDown(){
+    // MoveDown(){
+    //     this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
+        
+    //     if (this.style.height){
+    //         if (this.istouch){
+                
+    //             let t=this.getElementsByClassName('thumb')[0]
+    //             let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
+    //             t.style.transform='translateY('+String(n)+"px)"
+
+    //             if (this.istouch){
+    //                 if (t.getBoundingClientRect().y<=this.querySelector("div").getBoundingClientRect().y+2 && t.getBoundingClientRect().y!==0 && !completeSliderids.includes(this.id)){
+    //                     scoretext.innerText=Number(scoretext.innerText)+2*this.size
+    //                     this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
+    //                     this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
+    //                     completeSliderids.push(this.id)
+    //                 }   
+    //             }
+    //         }
+    //     }
+    // }
+    MoveDownSmooth(){
+
+        console.log('Hello')
+
         this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
         
         if (this.style.height){
@@ -45,6 +69,12 @@ class TileElement extends HTMLElement{
                 }
             }
         }
+
+
+        if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=document.body.clientHeight){
+            this.remove()
+        }
+        requestAnimationFrame(()=>{this.MoveDownSmooth()})
     }
     ActiveThumb(){
         
@@ -203,13 +233,20 @@ class TileElement extends HTMLElement{
             if (!this.style.transform){
                 this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
             }
-            this.idTimer=setInterval(()=>{
-                this.MoveDown()
-                if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=document.body.clientHeight){
-                    clearInterval(this.idTimer)
-                    this.remove()
-                }
-            },10)
+            // this.idTimer=setInterval(()=>{
+            //     this.MoveDown()
+            //     if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=document.body.clientHeight){
+            //         clearInterval(this.idTimer)
+            //         this.remove()
+            //     }
+            // },10)
+
+            this.MoveDownSmooth()
+            
+
+            
+
+
 
         }else{
             this.style.transform=`translateY(${document.body.clientHeight/2}px)`

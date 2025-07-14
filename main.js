@@ -101,7 +101,9 @@ function Load(id){
 }
 
 
-let intid=setInterval(()=>{
+
+
+function animateTilesMovement(){
     if (playing){
         GameTime+=PxSpeed
         if (GameTime>=document.body.clientHeight/4-PxSpeed/2 && GameTime<=document.body.clientHeight/4+PxSpeed/2){
@@ -109,7 +111,11 @@ let intid=setInterval(()=>{
             GameTime=0
         }
     }
-},10)
+
+    requestAnimationFrame(animateTilesMovement)
+}
+
+animateTilesMovement()
 
 
 
