@@ -10,6 +10,7 @@ class TileElement extends HTMLElement{
         if (this.getAttribute('first')!=="true"){
             vibrer()
             // clearInterval(this.idTimer)
+            cancelAnimationFrame(this.idTimer)
             UpdateBar(this.id)
             addEmitterExplosion(e.target.getBoundingClientRect().x+e.target.getBoundingClientRect().width/2,e.target.getBoundingClientRect().y+e.target.getBoundingClientRect().height/2)
             addEmitterTile(this.querySelector('div'))
@@ -48,8 +49,6 @@ class TileElement extends HTMLElement{
     // }
     MoveDownSmooth(){
 
-        console.log('Hello')
-
         this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
         
         if (this.style.height){
@@ -72,9 +71,10 @@ class TileElement extends HTMLElement{
 
 
         if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=document.body.clientHeight){
+            cancelAnimationFrame(this.idTimer)
             this.remove()
         }
-        requestAnimationFrame(()=>{this.MoveDownSmooth()})
+        this.idTimer=requestAnimationFrame(()=>{this.MoveDownSmooth()})
     }
     ActiveThumb(){
         

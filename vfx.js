@@ -203,7 +203,7 @@ function animate(){
         handleParticles(emitter)
     }
     
-    requestAnimationFrame(animate)
+    //requestAnimationFrame(animate)
 }
 
 function addEmitterExplosion(x,y){
@@ -217,7 +217,6 @@ function addEmitterExplosion(x,y){
     }
 }
 
-animate()
 
 // TILES
 
@@ -308,7 +307,7 @@ function animateTile(){
         handleTileParticles(emitter)
     }
     
-    requestAnimationFrame(animateTile)
+    //requestAnimationFrame(animateTile)
 }
 
 function addEmitterTile(element){
@@ -326,4 +325,16 @@ function addEmitterTile(element){
 
 
 
-animateTile()
+
+
+
+function animateALL(){
+    animate()
+    animateTile()
+    animateTilesMovement()   
+    
+    requestAnimationFrame(animateALL)
+}
+
+
+animateALL()

@@ -70,7 +70,6 @@ function getRandomCol(flastTile){
         '5':['5','2','4','6'],
         '6':['6','1','3','5']
     }
-    console.log(flastTile)
     let po=pos[String(flastTile)]
 
     return po[Math.round(rng()*(po.length-1))]
@@ -112,10 +111,10 @@ function animateTilesMovement(){
         }
     }
 
-    requestAnimationFrame(animateTilesMovement)
+    //requestAnimationFrame(animateTilesMovement)
 }
 
-animateTilesMovement()
+
 
 
 
