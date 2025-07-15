@@ -238,11 +238,12 @@ input,button,select,div{
 
 .title,.author{
     font-family: 'Roboto', sans-serif;
-    width: 100%;
+    width: 80vw;
     text-align: left;
     color: white;
     padding: 0;
     margin: 0;
+    word-wrap: break-word;
 }
 
 .author{

@@ -240,14 +240,21 @@ player.on('statechange',(e)=>{
     }   
 }) 
 
+ChangeSpeed(1)
 
-setInterval(()=>{
-    if (startTime!==-1){
-        let currentTime=Date.now()
-        if (currentTime-startTime>=duration){
-            console.log('fin')
+player.on('ended',(e)=>{
+    playing=false
+    FixSeed(ytid)
+    setTimeout(()=>{
+        startTime=Date.now()
+        playing=true
+        ChangeSpeed(SpeedSteps[0])
+        PxSpeed=Math.round(DefaultPxSpeed*SpeedSteps[0])
+        if (SpeedSteps.length>1){
+            SpeedSteps.splice(0,1)
+        }else{
+            PxSpeed+=2
         }
-    }
-
-},1000)
+    },3000)
+})
 
