@@ -140,6 +140,20 @@ function Load(id){
 }
 
 
+function waitForElement(selector, callback) {
+    const observer = new MutationObserver((mutations, observer) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            observer.disconnect();
+            callback(element);
+        }
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+    });
+}
 
 
 function animateTilesMovement(){
@@ -150,34 +164,10 @@ function animateTilesMovement(){
             GameTime=0
         }
     }
-
-    //requestAnimationFrame(animateTilesMovement)
 }
 
 
-
-
-
-const player = new Plyr('#player',{'autoplay':true,"mute":true});
-window.player = player;
-
-
-FixSeed('Hello World')
-
-
-
-
-// setTimeout(()=>{
-//     document.getElementById('truc').GrowUp()
-
-//     setTimeout(()=>{
-//         document.getElementById('truc').Reset()
-
-//         setTimeout(()=>{
-//             document.getElementById('truc').GrowUp()
-//         },500)
-//     },1000)
-// },100)
+//Configure variables for game
 
 
 document.addEventListener('mousedown',()=>{
@@ -196,4 +186,68 @@ document.addEventListener('touchend',()=>{
     isclicking=false
 })
 
+
+
+// Configure video
+
+if (window.location.search){
+    const urlParams = new URLSearchParams(window.location.search);
+    ytid=urlParams.get('id')
+}
+
+document.getElementById('player').setAttribute('data-plyr-embed-id',ytid)
+const player = new Plyr('#player',{
+    muted:false,
+    autoplay:true,
+    youtube: {
+            modestbranding: 1,  // Removes YouTube branding from the player
+            rel: 0,              // Prevents showing related videos at the end
+            showinfo: 0          // Hides the video title and uploader info
+    }
+});
+
+window.player = player
+
+player.on('ready', () => {
+    setTimeout(()=>{
+        document.getElementsByClassName('plyr__control')[1].click()
+        
+    },100)
+    setTimeout(()=>{
+        SetUpMusicinfo()
+    },1000)
+    
+})
+
+
+
+player.on('statechange',(e)=>{
+    if (e.detail.code===1 && !adspassed){
+        //Video is loaded
+        document.getElementById('waitingScreen').style.opacity=0
+        setTimeout(()=>{
+            document.getElementById('waitingScreen').style.display='none'
+        },500)
+        
+        console.log('Video loaded')
+        player.pause()
+        document.getElementsByClassName('plyr__control')[1].click()
+        duration=player.embed.getDuration() 
+        //FixSeed('Hello World')
+        FixSeed(ytid)
+
+        adspassed=true
+    }   
+}) 
+
+
+setInterval(()=>{
+    if (startTime!==-1){
+        let currentTime=Date.now()
+        if (currentTime-startTime>=duration){
+            console.log('fin')
+        }
+    }
+
+},1000)
 

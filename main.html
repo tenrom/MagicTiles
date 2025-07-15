@@ -15,10 +15,10 @@
     <script src="https://unpkg.com/plyr@3"></script>
     <script src="variables.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js" defer></script>
+    <script src="content.js" defer></script>
     <script src="main.js" defer></script>
     <script src="tile.js" defer></script>
     <script src="vfx.js" defer></script>
-    
     
 </head>
 <body>
@@ -32,7 +32,8 @@
         <!-- <game-tile id="truc" column="3"></game-tile> -->
     </div>
     <div class="container" style="display: none;">
-	    <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="PTZgxW_3LIQ"></div>
+	    <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="gEmNIXjfu2E"></div>
+        <!-- PTZgxW_3LIQ -->
     </div>
 
     <div class="div-info">
@@ -46,5 +47,24 @@
         </div>
     </div>
     
+    <div id="waitingScreen" class="waitingScreen titillium-web-bold">Loading Music...</div>
+
+    <div id="MusicInfoDiv" class="MusicInfoDiv">
+        <div style="display: flex;flex-direction: column;gap: 3vh;">
+            <img id="MusicImg" class="MusicImg">
+            <div style="display: flex;flex-direction: column;gap: 1vh;">
+                <h2 class="title" id="title"></h2>
+                <h2 class="author" id="author"></h2>
+            </div>
+            <br>
+            <button class="PlayBtn" id="PlayBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="5vh" height="5vh" viewBox="0 0 24 24">
+                    <path fill="#fffcfc" d="M8 17.175V6.825q0-.425.3-.713t.7-.287q.125 0 .263.037t.262.113l8.15 5.175q.225.15.338.375t.112.475t-.112.475t-.338.375l-8.15 5.175q-.125.075-.262.113T9 18.175q-.4 0-.7-.288t-.3-.712" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    
+    <div id="LoadingDiv" class="LoadingDiv titillium-web-bold">Loading...</div>
 </body>
 </html>

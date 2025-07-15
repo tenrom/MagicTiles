@@ -130,6 +130,7 @@ input,button,select,div{
   font-style: normal;
 }
 
+
 .div-info{
     margin: 0;
     padding: 0;
@@ -202,4 +203,87 @@ input,button,select,div{
     font-weight: 400;
     text-shadow: 1px 1px 1px rgb(253, 246, 180),-1px -1px 1px rgb(253, 246, 180),-1px 1px 1px rgb(253, 246, 180),1px -1px 1px rgb(253, 246, 180), 1px 1px 2px rgb(88, 88, 88),-1px -1px 2px rgb(88, 88, 88),-1px 1px 2px rgb(88, 88, 88),1px -1px 2px rgb(88, 88, 88);
     opacity: 0;
+}
+
+
+.MusicInfoDiv{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle,rgba(206, 145, 255, 1) 50%, rgba(255, 143, 255, 1) 100%);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MusicImg{
+    border: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 20px;
+    width: 80vw;
+    height: auto;
+}
+
+.PlayBtn{
+    height: 7vh;
+    border: 2px solid white;
+    border-radius: 3.5vh;
+    background-color: rgba(255, 143, 255, 1);
+}
+
+.title,.author{
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    text-align: left;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.author{
+    font-size: 3vw;
+    font-weight: 500;
+}
+
+.title{
+    font-size: 4vw;
+    font-weight: 700;
+}
+
+
+.LoadingDiv{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle,rgba(206, 145, 255, 1) 50%, rgba(255, 143, 255, 1) 100%);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 5vw;
+    color: white;
+    transition: 0.5s;
+}
+
+.waitingScreen{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle,rgba(206, 145, 255, 1) 50%, rgba(255, 143, 255, 1) 100%);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 5vw;
+    color: white;
+    transition: 0.5s;
 }

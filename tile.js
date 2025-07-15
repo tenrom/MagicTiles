@@ -264,7 +264,6 @@ class TileElement extends HTMLElement{
         this.style.gridColumn=this.getAttribute('column')
         this.style.gridRow=1
 
-        console.log(this.idTimer)
         cancelAnimationFrame(this.idTimer)
         this.MoveDownSmooth()
     }

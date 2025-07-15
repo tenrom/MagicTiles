@@ -48,7 +48,6 @@ function UpdateBar(id){
     let a=null
     let b=null
     if (document.getElementById(id).getElementsByClassName('thumb')[0] && document.getElementById(id).getElementsByClassName('thumb')[0].style.display!=='none'){
-        console.log(document.getElementById(id).getElementsByClassName('thumb')[0],document.getElementById(id).getElementsByClassName('thumb')[0].style.display!=='none')
         t=document.getElementById(id).getElementsByClassName('thumb')[0].getBoundingClientRect()
         a=t.y-(document.body.clientHeight/8)*0.8
         b=t.y+t.height+(document.body.clientHeight/8)*0.8
