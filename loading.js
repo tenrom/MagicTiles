@@ -1,6 +1,6 @@
 function LoadMusic(){
     let id=document.getElementById('ytid').value
-    if (id) open(String(window.location).replace(window.location.pathname,'')+'/main.html?id='+id,'_self')
+    if (id) open(window.location.pathname.split('/').slice(0,-1).join("")+'/main.html?id='+id,'_self')
 }
 
 document.getElementById('loadbtn').addEventListener('click',LoadMusic)
