@@ -1,7 +1,7 @@
 //https://stackoverflow.com/questions/76448215/programmatically-adding-a-file-in-a-github-repository-in-javascript-and-html
 
 let ytid="PTZgxW_3LIQ"
-let DefaultPxSpeed=10
+let DefaultPxSpeed=5
 let PxSpeed=DefaultPxSpeed
 let GameTime=0
 let playing=false

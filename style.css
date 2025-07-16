@@ -142,6 +142,7 @@ input,button,select,div{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
 }
 
 .div-info-avancement{
@@ -287,4 +288,78 @@ input,button,select,div{
     font-size: 5vw;
     color: white;
     transition: 0.5s;
+}
+
+
+.SpeedUpDiv{
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+    opacity: 0;
+    transition: 1s;
+}
+
+.SpeedUpText{
+    width:fit-content;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0.3vw;
+    font-size: 40px;
+    position: relative;
+}    
+.SpeedUpText::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    background: orange;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px transparent;
+    letter-spacing: 0.3vw;
+    font-size: 40px;
+}
+
+.SpeedUpText::before {
+    background: none;
+    content: attr(data-text);
+    position: absolute;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke: 7px white;
+    letter-spacing: 0.3vw;
+    font-size: 40px;
+}
+
+.SpeedUpNumber{
+    width:fit-content;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+    position: relative;
+}    
+.SpeedUpNumber::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    background: white;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px transparent;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+}
+
+.SpeedUpNumber::before {
+    background: none;
+    content: attr(data-text);
+    position: absolute;
+    -webkit-text-fill-color: orange;
+    -webkit-text-stroke: 7px orange;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
 }

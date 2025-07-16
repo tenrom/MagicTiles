@@ -198,7 +198,7 @@ if (window.location.search){
 document.getElementById('player').setAttribute('data-plyr-embed-id',ytid)
 const player = new Plyr('#player',{
     muted:false,
-    autoplay:true,
+    autoplay:false,
     youtube: {
             modestbranding: 1,  // Removes YouTube branding from the player
             rel: 0,              // Prevents showing related videos at the end
@@ -230,9 +230,14 @@ player.on('statechange',(e)=>{
         },500)
         
         console.log('Video loaded')
+
+        //Change Speed
+        ChangeSpeed(1)
+        //Pause
         player.pause()
+        //Mute
         document.getElementsByClassName('plyr__control')[1].click()
-        duration=player.embed.getDuration() 
+
         //FixSeed('Hello World')
         FixSeed(ytid)
 
@@ -240,21 +245,31 @@ player.on('statechange',(e)=>{
     }   
 }) 
 
-ChangeSpeed(1)
+
 
 player.on('ended',(e)=>{
+    console.log('end')
     playing=false
     FixSeed(ytid)
+    changeTileInfo(0)
+    document.getElementById('SpeedUpNumber').innerText=Number(document.getElementById('SpeedUpNumber').innerText)+1
+    document.getElementById('SpeedUpNumber').setAttribute('data-text',document.getElementById('SpeedUpNumber').innerText)
+    setTimeout(()=>{
+        document.getElementById('SpeedUpDiv').style.opacity=1
+    },3000)
+    setTimeout(()=>{
+        document.getElementById('SpeedUpDiv').style.opacity=0
+    },6500)
     setTimeout(()=>{
         startTime=Date.now()
         playing=true
         ChangeSpeed(SpeedSteps[0])
-        PxSpeed=Math.round(DefaultPxSpeed*SpeedSteps[0])
-        if (SpeedSteps.length>1){
+        if (SpeedSteps.length>=1){
+            PxSpeed=Math.round(DefaultPxSpeed*SpeedSteps[0])
             SpeedSteps.splice(0,1)
         }else{
             PxSpeed+=2
         }
-    },3000)
+    },8500)
 })
 
