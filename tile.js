@@ -240,13 +240,13 @@ class TileElement extends HTMLElement{
         this.querySelector('div').getElementsByClassName('ptsSliderInfo')[0].style.opacity=0
 
         if (clickids.includes(this.id)){
-            clickids.splice(completeSliderids.indexOf(this.id),1)
+            clickids.splice(clickids.indexOf(this.id),1)
         }
         if (completeSliderids.includes(this.id)){
             completeSliderids.splice(completeSliderids.indexOf(this.id),1)
         }
         if (activeid.includes(this.id)){
-            activeid.splice(completeSliderids.indexOf(this.id),1)
+            activeid.splice(activeid.indexOf(this.id),1)
         }
     }
     Reset(){
