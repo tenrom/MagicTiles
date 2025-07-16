@@ -159,7 +159,7 @@ function waitForElement(selector, callback) {
 function animateTilesMovement(){
     if (playing){
         GameTime+=PxSpeed
-        if (GameTime>=document.body.clientHeight/4-PxSpeed/2 && GameTime<=document.body.clientHeight/4+PxSpeed/2){
+        if (GameTime>=document.body.clientHeight/4-PxSpeed/2){
             NewLine()
             GameTime=0
             document.getElementById("fps").innerText='FPS: '+fps+' DELTA: '+delta+' DIFF: '+dif+' PxSpeed: '+PxSpeed
