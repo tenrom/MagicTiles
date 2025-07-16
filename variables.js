@@ -22,6 +22,7 @@ let SpeedSteps=[1.25,1.5,1.75,2]
 
 let timelastframe=0
 let fps=60
+let dif=0
 
 Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
