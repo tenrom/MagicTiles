@@ -340,19 +340,24 @@ function addEmitterTile(element){
 
 function animateALL(){
     fps=Math.round(1000 / (Date.now()-timelastframe))
-    dif=(Date.now()-timelastframe)
+    PxSpeed=PxSpeed/(delta/(1000/60))
+    delta=(Date.now()-timelastframe)
+    PxSpeed=PxSpeed*(delta/(1000/60))
 
     timelastframe=Date.now()
     requestAnimationFrame(animateALL)
 
-    animate()
-    animateTile()
-    animateTilesMovement()   
-
+    if (timelastframe>999 && fps>10){
+        dif=Math.round(delta/(1000/60)).clamp(1,999)
+    }   
     
+    console.log(dif)
     
-
-    
+    for (let i=0;i<dif;i++){
+        animate()
+        animateTile()
+        animateTilesMovement()  
+    }
 }
 
 
