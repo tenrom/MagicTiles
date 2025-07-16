@@ -162,7 +162,7 @@ function animateTilesMovement(){
         if (GameTime>=document.body.clientHeight/4-PxSpeed/2 && GameTime<=document.body.clientHeight/4+PxSpeed/2){
             NewLine()
             GameTime=0
-            document.getElementById("fps").innerText='FPS: '+fps+' DELTA: '+delta+' DIF: '+dif
+            document.getElementById("fps").innerText='FPS: '+fps+' DELTA: '+delta+' DIFF: '+dif
         }
     }
 }

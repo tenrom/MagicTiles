@@ -353,11 +353,11 @@ function animateALL(){
     
     console.log(dif)
     
-    for (let i=0;i<dif;i++){
-        animate()
-        animateTile()
-    }
-
+    // for (let i=0;i<dif;i++){
+        
+    // }
+    animate()
+    animateTile()
     animateTilesMovement()
 }
 
