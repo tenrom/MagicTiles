@@ -356,8 +356,9 @@ function animateALL(){
     for (let i=0;i<dif;i++){
         animate()
         animateTile()
-        animateTilesMovement()  
     }
+
+    animateTilesMovement()
 }
 
 
