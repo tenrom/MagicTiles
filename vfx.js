@@ -341,7 +341,9 @@ function addEmitterTile(element){
 function animateALL(){
     fps=Math.round(1000 / (Date.now()-timelastframe))
     dif=(Date.now()-timelastframe)
+
     timelastframe=Date.now()
+    requestAnimationFrame(animateALL)
 
     animate()
     animateTile()
@@ -350,7 +352,7 @@ function animateALL(){
     
     
 
-    requestAnimationFrame(animateALL)
+    
 }
 
 
