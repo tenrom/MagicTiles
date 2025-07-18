@@ -32,3 +32,9 @@ createColumnLines()
 window.addEventListener('resize',()=>{
     createColumnLines()
 })
+
+
+if (window.location.search){
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('ytid').value=urlParams.get('id')
+}

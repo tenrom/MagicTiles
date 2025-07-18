@@ -342,7 +342,7 @@ function animateALL(){
     fps=Math.round(1000 / (Date.now()-timelastframe))
     lastdelta=delta
     delta=(Date.now()-timelastframe)
-    //PxSpeed*=(delta/(1000/60))/(lastdelta/(1000/60))
+    PxSpeed*=(delta/(1000/60))/(lastdelta/(1000/60))
 
     timelastframe=Date.now()
     requestAnimationFrame(animateALL)

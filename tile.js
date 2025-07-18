@@ -57,22 +57,22 @@ class TileElement extends HTMLElement{
     //     }
     // }
     MoveDownSmooth(){
-        this.delta=Date.now()-this.timelastframe
-        if (this.delta<1000){
-            this.PxSpeed=(this.delta)/(1000/60)*PxSpeed
-        }else{
-            this.PxSpeed=PxSpeed
-        }
-        this.timelastframe=Date.now()
+        // this.delta=Date.now()-this.timelastframe
+        // if (this.delta<1000){
+        //     this.PxSpeed=(this.delta)/(1000/60)*PxSpeed
+        // }else{
+        //     this.PxSpeed=DefaultPxSpeed
+        // }
+        // this.timelastframe=Date.now()
         
 
-        this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+this.PxSpeed)+"px)"
+        this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
         
         if (this.style.height){
             if (this.istouch){
                 
                 let t=this.getElementsByClassName('thumb')[0]
-                let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-this.PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
+                let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
                 t.style.transform='translateY('+String(n)+"px)"
 
                 if (this.istouch){

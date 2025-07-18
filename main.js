@@ -149,6 +149,7 @@ function waitForElement(selector, callback) {
 }
 
 
+
 function animateTilesMovement(){
     if (playing){
         GameTime+=PxSpeed
@@ -201,20 +202,27 @@ const player = new Plyr('#player',{
 
 window.player = player
 
+function BackHome(){
+    open(String(window.location).split('/').slice(0,-1).join("/")+'/home.html?id='+ytid,'_self')
+}
 
-function checkVideoData() {
+function checkVideoData(n) {
     const videoData = player.embed.getVideoData()
     if (videoData.author) {
         document.getElementsByClassName('plyr__control')[1].click()
         SetUpMusicinfo()
     } else {
-        setTimeout(checkVideoData, 500)
+        if (n===10){
+            document.getElementById('LoadingDiv').innerHTML=`Please choose a valid id.<button class="buttonBack" onclick="BackHome()">Home</button>`
+            return 0
+        }
+        setTimeout(()=>{checkVideoData(n+1)}, 500)
     }
 }
 
 player.on('ready', () => {
     player.restart()
-    checkVideoData()
+    checkVideoData(0)
 })
 
 
@@ -246,6 +254,7 @@ player.on('ended',(e)=>{
     document.getElementById('SpeedUpNumber').innerText=Number(document.getElementById('SpeedUpNumber').innerText)+1
     document.getElementById('SpeedUpNumber').setAttribute('data-text',document.getElementById('SpeedUpNumber').innerText)
     setTimeout(()=>{
+        changeTileInfo(0)
         document.getElementById('SpeedUpDiv').style.opacity=1
     },3000)
     setTimeout(()=>{

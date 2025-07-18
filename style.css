@@ -363,3 +363,14 @@ input,button,select,div{
     letter-spacing: 0.3vw;
     font-size: 50px;
 }
+
+.buttonBack{
+    margin-top: 2vh;
+    font-size:3vh;
+    background: rgba(255, 143, 255, 1);
+    color: white;
+    width: 50vw;
+    height: 10vh;
+    border: 2px solid white;
+    border-radius: 5vh;
+}
