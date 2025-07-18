@@ -26,7 +26,7 @@ class TileElement extends HTMLElement{
             vibrer()
             playing=true
             PxSpeed=DefaultPxSpeed
-            document.getElementsByClassName('plyr__control')[0].click()
+            ChangeSpeed(1)
             player.embed.unMute()
             addEmitterExplosion(e.target.getBoundingClientRect().x+e.target.getBoundingClientRect().width/2,e.target.getBoundingClientRect().y+e.target.getBoundingClientRect().height/2)
             addEmitterTile(this.querySelector('div'))
@@ -58,13 +58,23 @@ class TileElement extends HTMLElement{
     // }
     MoveDownSmooth(){
 
-        this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
+        this.delta=Date.now()-this.timelastframe
+        if (this.delta<1000){
+            this.PxSpeed=(this.delta)/(1000/60)*PxSpeed
+        }else{
+            this.PxSpeed=PxSpeed
+        }
+        this.PxSpeed=PxSpeed
+        this.timelastframe=Date.now()
+        
+
+        this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+this.PxSpeed)+"px)"
         
         if (this.style.height){
             if (this.istouch){
                 
                 let t=this.getElementsByClassName('thumb')[0]
-                let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
+                let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-this.PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
                 t.style.transform='translateY('+String(n)+"px)"
 
                 if (this.istouch){
@@ -99,7 +109,9 @@ class TileElement extends HTMLElement{
             queue.push(this.id)
             return 0
         }
+
         this.idTimer=requestAnimationFrame(()=>{this.MoveDownSmooth()})
+        
     }
     // EventTouchStart(e){
     //     this.istouch=true
@@ -147,7 +159,7 @@ class TileElement extends HTMLElement{
 
             this.thumb.addEventListener('touchend',(e)=>{
                 this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),1)
                 clickids.push(this.id)
             })
         }else{
@@ -156,12 +168,12 @@ class TileElement extends HTMLElement{
 
             this.thumb.addEventListener('mouseup',(e)=>{
                 this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),1)
                 clickids.push(this.id)
             })
             this.thumb.addEventListener('mouseleave',(e)=>{
                 this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),1)
                 clickids.push(this.id)
             })
         }
@@ -210,7 +222,7 @@ class TileElement extends HTMLElement{
 
             this.thumb.removeEventListener('touchend',(e)=>{
                 this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),1)
                 clickids.push(this.id)
             })
         }else{
@@ -218,12 +230,12 @@ class TileElement extends HTMLElement{
 
             this.thumb.removeEventListener('mouseup',(e)=>{
                 this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),1)
                 clickids.push(this.id)
             })
             this.thumb.removeEventListener('mouseleave',(e)=>{
                 this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),this.id)
+                activeid.splice(activeid.indexOf(this.id),1)
                 clickids.push(this.id)
             })
         }
@@ -265,6 +277,7 @@ class TileElement extends HTMLElement{
         this.style.gridRow=1
 
         cancelAnimationFrame(this.idTimer)
+        this.timelastframe=0
         this.MoveDownSmooth()
     }
     connectedCallback(){
@@ -289,12 +302,12 @@ class TileElement extends HTMLElement{
 
                         this.thumb.addEventListener('mouseup',(e)=>{
                             this.istouch=false
-                            activeid.splice(activeid.indexOf(this.id),this.id)
+                            activeid.splice(activeid.indexOf(this.id),1)
                             clickids.push(this.id)
                         })
                         this.thumb.addEventListener('mouseleave',(e)=>{
                             this.istouch=false
-                            activeid.splice(activeid.indexOf(this.id),this.id)
+                            activeid.splice(activeid.indexOf(this.id),1)
                             clickids.push(this.id)
                         })
                     }
@@ -312,7 +325,7 @@ class TileElement extends HTMLElement{
 
                         this.thumb.addEventListener('touchend',(e)=>{
                             this.istouch=false
-                            activeid.splice(activeid.indexOf(this.id),this.id)
+                            activeid.splice(activeid.indexOf(this.id),1)
                             clickids.push(this.id)
                         })
                     }

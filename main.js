@@ -87,13 +87,6 @@ function NewLine(){
 
         
     }
-    
-    if (clickids.length>=15){
-        clickids=clickids.slice(5,-1)
-    }
-    if (completeSliderids.length>=15){
-        completeSliderids=completeSliderids.slice(5,-1)
-    }
 }
 
 function FixSeed(seed){
@@ -203,21 +196,25 @@ const player = new Plyr('#player',{
     youtube: {
             modestbranding: 1,  // Removes YouTube branding from the player
             rel: 0,              // Prevents showing related videos at the end
-            showinfo: 0          // Hides the video title and uploader info
     }
 });
 
 window.player = player
 
-player.on('ready', () => {
-    setTimeout(()=>{
+
+function checkVideoData() {
+    const videoData = player.embed.getVideoData()
+    if (videoData.author) {
         document.getElementsByClassName('plyr__control')[1].click()
-        
-    },100)
-    setTimeout(()=>{
         SetUpMusicinfo()
-    },1000)
-    
+    } else {
+        setTimeout(checkVideoData, 500)
+    }
+}
+
+player.on('ready', () => {
+    player.restart()
+    checkVideoData()
 })
 
 
@@ -231,14 +228,7 @@ player.on('statechange',(e)=>{
         },500)
         
         console.log('Video loaded')
-
-        //Change Speed
-        ChangeSpeed(1)
-        //Pause
-        player.pause()
-        //Mute
-        document.getElementsByClassName('plyr__control')[1].click()
-
+        
         //FixSeed('Hello World')
         FixSeed(ytid)
 
