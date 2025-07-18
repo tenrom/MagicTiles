@@ -198,9 +198,9 @@ input,button,select,div{
     margin: 0;
     padding: 0;
     position: absolute;
-    top: -9.5vw;
+    top: -5vh;
     color: white;
-    font-size: 6vw;
+    font-size: 3vh;
     font-weight: 400;
     text-shadow: 1px 1px 1px rgb(253, 246, 180),-1px -1px 1px rgb(253, 246, 180),-1px 1px 1px rgb(253, 246, 180),1px -1px 1px rgb(253, 246, 180), 1px 1px 2px rgb(88, 88, 88),-1px -1px 2px rgb(88, 88, 88),-1px 1px 2px rgb(88, 88, 88),1px -1px 2px rgb(88, 88, 88);
     opacity: 0;

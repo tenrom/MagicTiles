@@ -57,14 +57,12 @@ class TileElement extends HTMLElement{
     //     }
     // }
     MoveDownSmooth(){
-
         this.delta=Date.now()-this.timelastframe
         if (this.delta<1000){
             this.PxSpeed=(this.delta)/(1000/60)*PxSpeed
         }else{
             this.PxSpeed=PxSpeed
         }
-        this.PxSpeed=PxSpeed
         this.timelastframe=Date.now()
         
 
