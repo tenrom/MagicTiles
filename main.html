@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, target-densitydpi=device-dp">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Data/favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     <title>MagicTiles</title>
-    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/polyfill/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
     <script src="https://unpkg.com/plyr@3"></script>
     <script src="variables.js" defer></script>
@@ -19,7 +22,10 @@
     <script src="main.js" defer></script>
     <script src="tile.js" defer></script>
     <script src="vfx.js" defer></script>
+    <script src="apimanager.js" defer></script>
+    <script src="shared/accountmanager.js" defer></script>
     
+    <script src="auth.js" defer></script>
 </head>
 <body>
     
@@ -54,19 +60,32 @@
 
     <div id="waitingScreen" class="waitingScreen titillium-web-bold">Loading Music...</div>
 
-    <div id="MusicInfoDiv" class="MusicInfoDiv">
-        <div style="display: flex;flex-direction: column;gap: 3vh;">
-            <img id="MusicImg" class="MusicImg">
-            <div style="display: flex;flex-direction: column;gap: 1vh;">
-                <h2 class="title" id="title"></h2>
-                <h2 class="author" id="author"></h2>
+    <div id="MusicInfoDiv" class="MusicInfoDiv GradientBg">
+        <div style="display: flex;flex-direction: column;gap: 34px; width: 100%;height: 100%;justify-content: center;align-items: center;">
+            <div class="BoxTransparent BoxMusicInfo">
+                <div style="display: flex;flex-direction: column;gap: 24px; width: 100%;justify-content: center;align-items: center;">
+                    <img id="MusicImg" class="MusicImg">
+                    <div style="display: flex;flex-direction: column;gap: 1vh;">
+                        <h2 class="title" id="title"></h2>
+                        <h2 class="author" id="author"></h2>
+                    </div>
+                </div>
+                
+                <div>
+
+
+                </div>
             </div>
-            <br>
-            <button class="PlayBtn" id="PlayBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="5vh" height="5vh" viewBox="0 0 24 24">
-                    <path fill="#fffcfc" d="M8 17.175V6.825q0-.425.3-.713t.7-.287q.125 0 .263.037t.262.113l8.15 5.175q.225.15.338.375t.112.475t-.112.475t-.338.375l-8.15 5.175q-.125.075-.262.113T9 18.175q-.4 0-.7-.288t-.3-.712" />
-                </svg>
-            </button>
+            <div class="div-btnmusic">
+                <a class="PlaylistBtn btn" id="PlaylistBtn" href="/index.html">
+                    <img src="Data/Icons/icon-playlist.svg" style="position: absolute;pointer-events: none;width: 64px;height: 64px;">
+                    <img src="Data/Texture/texture-btnplaylist.png" style="visibility: hidden;height: 24vw;width: 24vw;">
+                </a>
+                <button class="PlayBtn btn" id="PlayBtn">
+                    <img src="Data/Icons/icon-play.svg" style="position: absolute;pointer-events: none;width: 46px;height: 46px;">
+                    <img src="Data/Texture/texture-btnplay.png" style="visibility: hidden;height:24vw;width: auto;">
+                </button>
+            </div>
         </div>
     </div>
     

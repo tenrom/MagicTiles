@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Data/favicon.svg">
+    <title>MagicTiles</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/stylehome.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="loading.js" defer></script>
+    
+    <script src="apimanager.js" defer></script>
+    <script src="auth.js" defer></script>
+</head>
+<body>
+    <div class="GradientBg page">
+        <iframe src="Iframe/navigation.html?index=1" class="navigation"></iframe>
+    </div>
+    <div class="box">
+        <label name="ytid" class="titillium-web-bold">Your Youtube video id here:</label>
+        <input type="text" name="ytid" id="ytid" class="titillium-web-bold entry">
+        <button id="loadbtn" class="loadbtn titillium-web-bold">Load</button>
+    </div>
+</body>
+</html>

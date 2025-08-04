@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../Data/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <title>MagicTiles</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="../apimanager.js" defer></script>
+    <script src="accountmanager.js"></script>
+    <script src="../content.js"></script>
+
+    <script src="../auth.js" defer></script>
+</head>
+<body>
+    <div class="GradientBg titillium-web-bold" style="font-size: 24px;font-size: 5vw;color: white;">Redirection...</div>
+    <div class="GradientBg page" id="InfoDiv">
+        <div id="qrcode" class="qrcode"></div>
+        <iframe src="../Iframe/navigation.html?index=2" class="navigation"></iframe>
+    </div>
+</body>
+</html>

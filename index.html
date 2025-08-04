@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Data/favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>MagicTiles</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+    <script src="apimanager.js" defer></script>
+    <script src="shared/accountmanager.js" defer></script>
+    <script src="musictile.js" defer></script>
+    <script src="content.js" defer></script>
+
+    <script src="auth.js" defer></script>
+</head>
+<body>
+    <div class="GradientBg page">
+        <div class="musics" id="musics">
+        </div>
+        <iframe src="Iframe/navigation.html?index=0" class="navigation"></iframe>
+    </div>
+
+    <div class="GradientBg" id="ConnexionDiv" style="display: none;">
+        <div class="ConnexionBox BoxTransparent">
+            <div style="display: flex;flex-direction: column;justify-content: center;width: calc(100% - 90px);">
+                <h2 class="ConnexionBox-Text">Username</h2>
+                <input type="text" class="ConnexionBox-Input" id="username">
+                <h2 class="ConnexionBox-Text" style="margin-top: 34px;">Password</h2>
+                <input type="password" class="ConnexionBox-Input" id="password">
+            </div>
+            
+            <button class="btn ConnectBtn" onclick="Connect(document.getElementById('username').value,document.getElementById('password').value)"">
+                <h2 style="pointer-events: none;color: white;font-size:32px;font-family: 'Roboto', sans-serif;font-weight: bold;position: absolute;">Connect</h2>
+                <img src="/Data/Texture/texture-btnconnect.png" style="visibility: hidden;width: 50vw;height: auto;">
+            </button>
+
+            <div class="Connexion-Title">
+                Sign in to your account
+            </div>
+        </div>
+    </div>
+</body>
+</html>

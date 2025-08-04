@@ -276,6 +276,16 @@ class TileElement extends HTMLElement{
 
         cancelAnimationFrame(this.idTimer)
         this.timelastframe=0
+        this.id=this.getAttribute('id')
+        if (clickids.includes(this.id)){
+            clickids.splice(clickids.indexOf(this.id),1)
+        }
+        if (completeSliderids.includes(this.id)){
+            completeSliderids.splice(completeSliderids.indexOf(this.id),1)
+        }
+        if (activeid.includes(this.id)){
+            activeid.splice(activeid.indexOf(this.id),1)
+        }
         this.MoveDownSmooth()
     }
     connectedCallback(){

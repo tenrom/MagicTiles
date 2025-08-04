@@ -1,0 +1,548 @@
+:root{
+    --hit-margin:30px;
+}
+
+.tile{
+    height:25%;
+    width:100%;
+    border-radius: 0;
+    background-color: rgba(41, 41, 41,0);
+    border-top: solid var(--hit-margin) rgba(0, 0, 0, 0);
+    border-bottom: solid var(--hit-margin) rgba(0, 0, 0, 0);
+    position: relative;
+    top: calc(var(--hit-margin) - var(--hit-margin) * 2);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.innertile{
+    pointer-events: none;
+    border-radius:5vh;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(31, 7, 7);
+    box-shadow: 0px 15px rgb(41, 41, 41);
+    border: solid 1px rgb(202, 54, 195);
+    display: flex;
+    flex-direction: column;
+    justify-content:end;
+    align-items:center;
+    user-select: none;
+}
+
+.firsttile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body,html{
+    width: 100%;
+    height:100%;
+    max-height:100%;
+    padding: 0px;
+    margin:0px;
+}
+
+.Game{
+    width: 100%;
+    height:100%;
+    max-height:100%;
+    box-sizing:border-box;
+    padding: 1px;
+    margin:0px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: 1fr;
+    overflow: hidden;
+}
+
+.container {
+	margin: 20px auto;
+	max-width: 500px;
+}
+
+.slider{
+    pointer-events: auto;
+}
+
+.thumb{
+    width: 100%;
+    background-color: rgb(253, 50, 243);
+    pointer-events: auto;
+    user-select: none;
+    border-radius:5vh;
+}
+
+/* https://cssgradient.io/ */
+
+input,button,select,div{
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+#canvas1{
+    position: absolute;
+    background: linear-gradient(0deg,rgba(145, 183, 253, 1) 0%, rgba(255, 179, 235, 1) 50%, rgba(145, 183, 253, 1) 100%);
+    width: 100%;
+    height: 100%;
+}
+#canvas2{
+    position: absolute;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    filter: blur(1px);
+    opacity: 0.5;
+}
+#canvas3{
+    position: absolute;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    filter: blur(1px);
+    opacity: 0.5;
+}
+#canvas4{
+    position: absolute;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    filter: blur(1px);
+}
+
+.score{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 11vw;
+    letter-spacing: 0.5vw;
+    text-shadow: 1px 1px 1px rgb(253, 246, 180),-1px -1px 1px rgb(253, 246, 180),-1px 1px 1px rgb(253, 246, 180),1px -1px 1px rgb(253, 246, 180), 1px 1px 5px rgb(88, 88, 88),-1px -1px 5px rgb(88, 88, 88),-1px 1px 5px rgb(88, 88, 88),1px -1px 5px rgb(88, 88, 88);
+}
+
+.titillium-web-bold {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+.div-info{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.div-info-avancement{
+    width: 100%;
+    height: 5vw;
+}
+
+.div-info-pts{
+    width:fit-content;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+    position: relative;
+}    
+.div-info-pts::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    background: var(--color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px transparent;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+}
+
+.div-info-pts::before {
+    background: none;
+    content: attr(data-text);
+    position: absolute;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke: 7px white;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+}
+
+.div-info-tile{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.text-mult{
+    color: white;
+    margin: -15px 0 0 0;
+    padding: 0;
+    text-shadow: 1px 1px 1px rgb(253, 246, 180),-1px -1px 1px rgb(253, 246, 180),-1px 1px 1px rgb(253, 246, 180),1px -1px 1px rgb(253, 246, 180), 1px 1px 3px rgb(88, 88, 88),-1px -1px 3px rgb(88, 88, 88),-1px 1px 3px rgb(88, 88, 88),1px -1px 3px rgb(88, 88, 88);
+}
+
+.ptsSliderInfo{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: -5vh;
+    color: white;
+    font-size: 3vh;
+    font-weight: 400;
+    text-shadow: 1px 1px 1px rgb(253, 246, 180),-1px -1px 1px rgb(253, 246, 180),-1px 1px 1px rgb(253, 246, 180),1px -1px 1px rgb(253, 246, 180), 1px 1px 2px rgb(88, 88, 88),-1px -1px 2px rgb(88, 88, 88),-1px 1px 2px rgb(88, 88, 88),1px -1px 2px rgb(88, 88, 88);
+    opacity: 0;
+}
+
+.GradientBg{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle,#ce91ff 50%, #ff8fff 100%);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MusicInfoDiv{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 42px 16px;
+    width: calc(100% - 32px);
+    height: calc(100% - 84px);
+}
+
+.MusicImg{
+    border: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 20px;
+    width: 80vw;
+    height: auto;
+}
+
+.PlayBtn{
+    height: fit-content;
+    width: fit-content;
+    border-radius: 55px;
+    background-image: url("../Data/Texture/texture-btnplay.png");
+}
+.PlaylistBtn{
+    height: fit-content;
+    width: fit-content;
+    border-radius: 55px;
+    background-image: url("../Data/Texture/texture-btnplaylist.png");
+}
+.div-btnmusic{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+}
+
+.title,.author{
+    font-family: 'Roboto', sans-serif;
+    width: 80vw;
+    text-align: left;
+    color: white;
+    padding: 0;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.author{
+    font-size: 4vw;
+    font-weight: 500;
+}
+
+.title{
+    font-size: 5vw;
+    font-weight: 700;
+}
+
+
+.LoadingDiv{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle,rgba(206, 145, 255, 1) 50%, rgba(255, 143, 255, 1) 100%);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 5vw;
+    color: white;
+    transition: 0.5s;
+    text-align: center;
+}
+
+.waitingScreen{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle,rgba(206, 145, 255, 1) 50%, rgba(255, 143, 255, 1) 100%);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 5vw;
+    color: white;
+    transition: 0.5s;
+}
+
+
+.SpeedUpDiv{
+    margin-top: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+    opacity: 0;
+    transition: 1s;
+}
+
+.SpeedUpText{
+    width:fit-content;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0.3vw;
+    font-size: 40px;
+    position: relative;
+}    
+.SpeedUpText::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    background: orange;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px transparent;
+    letter-spacing: 0.3vw;
+    font-size: 40px;
+}
+
+.SpeedUpText::before {
+    background: none;
+    content: attr(data-text);
+    position: absolute;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke: 7px white;
+    letter-spacing: 0.3vw;
+    font-size: 40px;
+}
+
+.SpeedUpNumber{
+    width:fit-content;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+    position: relative;
+}    
+.SpeedUpNumber::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    background: white;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px transparent;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+}
+
+.SpeedUpNumber::before {
+    background: none;
+    content: attr(data-text);
+    position: absolute;
+    -webkit-text-fill-color: orange;
+    -webkit-text-stroke: 7px orange;
+    letter-spacing: 0.3vw;
+    font-size: 50px;
+}
+
+.buttonBack{
+    margin-top: 2vh;
+    font-size:3vh;
+    background: rgba(255, 143, 255, 1);
+    color: white;
+    width: 50vw;
+    height: 10vh;
+    border: 2px solid white;
+    border-radius: 5vh;
+}
+
+
+/* hsla(0,0%,100%,.05) */
+
+.BoxTransparent{
+    background-color: hsla(0,0%,100%,14%);
+    border-radius: 34px;
+    border: solid hsla(0,0%,100%,22%) 1px;
+}
+
+.BoxMusicInfo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 37px;
+}
+
+.ConnexionBox{
+    width: 85vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 42px;
+    position: relative;
+    padding-top: calc(3vh + 25px);
+    padding-bottom: 3vh;
+}
+
+.ConnexionBox-Text{
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 11px;
+}
+
+.ConnexionBox-Input{
+    border-radius: 44px;
+    border: none;
+    height: 55px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.ConnexionBox-Input:focus{
+    outline: none;
+}
+
+.Connexion-Title{
+    background-color: #FF8FFF;
+    width: 264px;
+    height: 50px;
+    border-radius: 21px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: solid hsl(0, 0%, 100%, 45%) 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+    top: 0;
+    transform: translateY(-25px);
+}
+
+.ConnectBtn{
+    background-image: url("/Data/Texture/texture-btnconnect.png");
+}
+
+
+.btn{
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 55px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.musics{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.page{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.navigation{
+    width: 100%;
+    height: 88px;
+    border: none;
+}
+
+.tab{
+    width: 100%;
+    height: 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF8FFF;
+    text-decoration: none;
+}
+
+.currenttab{
+    background-color: #CF4DC6;
+}
+
+.tab-text{
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.tab-img{
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    margin: 0;
+}
+

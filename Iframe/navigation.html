@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MagicTiles</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script defer>
+        window.addEventListener('load',()=>{
+            if (window.location.search){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                if (urlParams.get('index')){
+                    document.getElementsByTagName('a')[Number(urlParams.get('index'))].classList.add("currenttab")
+                    document.getElementsByTagName('a')[Number(urlParams.get('index'))].removeAttribute("href")
+                }
+            }
+        })
+        
+    </script>
+</head>
+<body>
+    <nav style="width: 100%;height: 100%;display: flex;flex-direction: row;justify-content: center;align-items: center;">
+        <a class="tab" href="../index.html" target="_top">
+            <img src="../Data/Icons/icon-playlist.svg" class="tab-img">
+            <h2 class="tab-text">Playlist</h2>
+        </a>
+        <a class="tab" href="../addmusic.html" target="_top">
+            <img src="../Data/Icons/icon-addmusic.svg" class="tab-img">
+            <h2 class="tab-text">Add Music</h2>
+        </a>
+        <a class="tab" href="../shared/invitefriend.html" target="_top">
+            <img src="../Data/Icons/icon-profile.svg" class="tab-img">
+            <h2 class="tab-text">Settings</h2>
+        </a>
+    </nav>
+</body>
+</html>

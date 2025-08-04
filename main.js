@@ -203,7 +203,7 @@ const player = new Plyr('#player',{
 window.player = player
 
 function BackHome(){
-    open(String(window.location).split('/').slice(0,-1).join("/")+'/home.html?id='+ytid,'_self')
+    open(String(window.location).split('/').slice(0,-1).join("/")+'/addmusic.html?id='+ytid,'_self')
 }
 
 function checkVideoData(n) {
@@ -212,8 +212,8 @@ function checkVideoData(n) {
         document.getElementsByClassName('plyr__control')[1].click()
         SetUpMusicinfo()
     } else {
-        if (n===10){
-            document.getElementById('LoadingDiv').innerHTML=`Please choose a valid id.<button class="buttonBack" onclick="BackHome()">Home</button>`
+        if (n===20){
+            document.getElementById('LoadingDiv').innerHTML=`The Video take too much time to load.<br>Please check your connection<br>and the validity of the id/url.<button class="buttonBack" onclick="BackHome()">Home</button>`
             return 0
         }
         setTimeout(()=>{checkVideoData(n+1)}, 500)
