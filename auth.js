@@ -1,3 +1,17 @@
+
+// isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+// if (isMobile){
+//     window.addEventListener('click',()=>{
+//         if (!document.documentElement.fullscreenEnabled){
+//             document.documentElement.requestFullscreen()
+//         }
+//     })
+// }
+
+
+
+
+
 let username
 let password
 

@@ -15,14 +15,14 @@ function CallAPI(url,after,method="GET"){
 const repo = "MagicTilesDB"
 const owner = "tenrom"
 const path = "DataBase.json"
-const token = "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"
+const token = "11BUKKBDQ08OOLgZq3R3NZ_fM7nXlZmzCaWZdbvVeVZEOfdc9VibiAlCkCbVjXkREJ7MJRNAKKqdU2t17L"
 let DB={}
 
 
 function getDB(after){
     fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
         headers: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${"github_pat_"+token}`,
             "Accept": "application/vnd.github.v3+json"
         }
     })
@@ -37,7 +37,7 @@ function UpdateDB(mod){
     // First, get the current file SHA
     fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
         headers: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${"github_pat_"+token}`,
             "Accept": "application/vnd.github.v3+json"
         }
     })
@@ -73,11 +73,11 @@ function UpdateDB(mod){
         }).then((e)=>{
             console.log(e)
             console.log(e.status)
-            if (e.status===409){
-                setTimeout(()=>{
-                    UpdateDB(mod)
-                },1000)
-            }
+            // if (e.status===409){
+            //     setTimeout(()=>{
+            //         UpdateDB(mod)
+            //     },1000)
+            // }
         })
         // UpdateDB(mod)
     })

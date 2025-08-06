@@ -65,7 +65,7 @@ class MusicTile extends HTMLElement{
         
 
         this.addEventListener('click',()=>{
-            open(String(window.location).split('/').slice(0,-1).join("/")+'/main.html?id='+this.id,'_self')
+            open(String(window.location).split('/').slice(0,-1).join("/")+'/main.html?id='+this.id,'_self','fullscreen=yes')
         })
     }
 }

@@ -12,7 +12,6 @@ function SetUpMusicinfo(){
         document.getElementById('LoadingDiv').style.display='none'
 
         getDB((content)=>{
-            console.log(DB)
             DB=content
             if (!JSON.stringify(DB['accounts'][username].musics).includes(ytid)){
                 AddMusicToPlaylist(ytid,info.title,info.author,username)

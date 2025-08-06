@@ -72,9 +72,8 @@ class TileElement extends HTMLElement{
             if (this.istouch){
                 
                 let t=this.getElementsByClassName('thumb')[0]
-                let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
+                let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-(this.getElementsByClassName('innertile')[0].clientHeight)+document.body.clientHeight/4),0)
                 t.style.transform='translateY('+String(n)+"px)"
-
                 if (this.istouch){
                     if (t.getBoundingClientRect().y<=this.querySelector("div").getBoundingClientRect().y+2 && t.getBoundingClientRect().y!==0 && !completeSliderids.includes(this.id)){
                         scoretext.innerText=Number(scoretext.innerText)+2*this.size
@@ -287,6 +286,8 @@ class TileElement extends HTMLElement{
             activeid.splice(activeid.indexOf(this.id),1)
         }
         this.MoveDownSmooth()
+
+        // this.istouch=false
     }
     connectedCallback(){
         
