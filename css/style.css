@@ -475,7 +475,7 @@ input,button,select,div{
 }
 
 .ConnectBtn{
-    background-image: url("/Data/Texture/texture-btnconnect.png");
+    background-image: url("Data/Texture/texture-btnconnect.png");
 }
 
 
@@ -567,4 +567,5 @@ input,button,select,div{
 .stars{
     width: 185px;
     height: auto;
+
 }
