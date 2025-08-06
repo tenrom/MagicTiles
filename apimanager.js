@@ -61,7 +61,7 @@ function UpdateDB(mod){
         fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
             method: "PUT",
             headers: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${"github_pat_"+token}`,
             "Accept": "application/vnd.github.v3+json",
             "Content-Type": "text/json; charset=iso-8859-1"
             },

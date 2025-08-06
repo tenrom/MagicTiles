@@ -262,6 +262,8 @@ class TileElement extends HTMLElement{
         this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
         this.style.display='block'
 
+        this.istouch=false
+        
         this.Shrink()
 
         if (isMobile) {
@@ -286,8 +288,6 @@ class TileElement extends HTMLElement{
             activeid.splice(activeid.indexOf(this.id),1)
         }
         this.MoveDownSmooth()
-
-        this.istouch=false
     }
     connectedCallback(){
         
