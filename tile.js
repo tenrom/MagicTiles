@@ -287,7 +287,7 @@ class TileElement extends HTMLElement{
         }
         this.MoveDownSmooth()
 
-        // this.istouch=false
+        this.istouch=false
     }
     connectedCallback(){
         
