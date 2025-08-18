@@ -235,7 +235,6 @@ animateTileElement()
 
 canvastile.addEventListener('touchstart',(ev)=>{
     for (let i in tileArray){
-        tileArray[i].isClick=false
         if (tileArray[i].isSlider){
             let x1=tileArray[i].x
             let x2=tileArray[i].x+tileArray[i].width
