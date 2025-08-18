@@ -42,18 +42,18 @@ function createBar(){
 
 createBar()
 
-function UpdateBar(id){
+function UpdateBar(e){
     let t=null
     let hitmargin=window.getComputedStyle(document.body).getPropertyValue('--hit-margin')
     let a=null
     let b=null
-    if (document.getElementById(id).getElementsByClassName('thumb')[0] && document.getElementById(id).getElementsByClassName('thumb')[0].style.display!=='none'){
-        t=document.getElementById(id).getElementsByClassName('thumb')[0].getBoundingClientRect()
+    if (e.isSlider){
+        t={'x':e.x,'y':e.y+e.height-canvastile.height/4-e.sliderOffset,'width':e.width,'height':canvastile.width/4}
         a=t.y-(document.body.clientHeight/8)*0.8
         b=t.y+t.height+(document.body.clientHeight/8)*0.8
     }else{
-        t=document.getElementById(id).getBoundingClientRect()
-        a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))-(document.body.clientHeight/8)**0.8
+        t={'x':e.x,'y':e.y,'width':e.width,'height':e.height}
+        a=t.y+Number(hitmargin.slice(0,hitmargin.length-2))-(document.body.clientHeight/8)*0.8
         b=t.y+t.height-Number(hitmargin.slice(0,hitmargin.length-2))+(document.body.clientHeight/8)*0.8
     }
     
@@ -320,17 +320,16 @@ function animateTile(){
     //requestAnimationFrame(animateTile)
 }
 
-function addEmitterTile(element){
-    let bound=element.getBoundingClientRect()
+function addEmitterTile(x,y,width,height,radius){
+    let bound={'x':x,'y':y,'width':width,'height':height}
     let l=emittersArrayTile.push([])
-    let radius=getComputedStyle(element).borderRadius
-    createTileParticle([bound.x], [bound.y],bound.width, bound.height,Number(radius.slice(0,radius.length-2)),'rgba(255,255,255,1.2)',0.05,3,bound.height,-1,0,l-1)
+    createTileParticle([bound.x], [bound.y],bound.width, bound.height,radius,'rgba(255,255,255,1.2)',0.05,3,bound.height,-1,0,l-1)
 
-    createTileParticle([bound.x], [bound.y],bound.width, bound.height,Number(radius.slice(0,radius.length-2)),'rgba(255,255,255,1.2)',0.015,-5,2,-1,0,l-1)
+    createTileParticle([bound.x], [bound.y],bound.width, bound.height,radius,'rgba(255,255,255,1.2)',0.015,-5,2,-1,0,l-1)
 
-    createTileParticle([bound.x], [bound.y],bound.width, bound.height,Number(radius.slice(0,radius.length-2)),'rgba(255,255,255,1.2)',0.04,0,bound.height,12,0,l-1)
+    createTileParticle([bound.x], [bound.y],bound.width, bound.height,radius,'rgba(255,255,255,1.2)',0.04,0,bound.height,12,0,l-1)
 
-    createTileParticle([bound.x], [bound.y],bound.width, bound.height,Number(radius.slice(0,radius.length-2)),'rgba(255,255,255,1.2)',0.04,3,bound.height*1.6,4,0,l-1)
+    createTileParticle([bound.x], [bound.y],bound.width, bound.height,radius,'rgba(255,255,255,1.2)',0.04,3,bound.height*1.6,4,0,l-1)
 }
 
 

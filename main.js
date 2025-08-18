@@ -9,26 +9,27 @@
 // FUNCTIONS
 
 
-function InitializeTiles(){
-    PxSpeed=document.body.clientHeight
-    for (let index=0;index<14;index++){
-        document.getElementById("Game").innerHTML+=`<game-tile column=1 id="${index}" style="display:none;"></game-tile>`
-        queue.push(index)
-    }
-}
+// function InitializeTiles(){
+//     PxSpeed=document.body.clientHeight
+//     for (let index=0;index<14;index++){
+//         document.getElementById("Game").innerHTML+=`<game-tile column=1 id="${index}" style="display:none;"></game-tile>`
+//         queue.push(index)
+//     }
+// }
 
-InitializeTiles()
+// InitializeTiles()
 
 
 function NewLine(){
     n=getRandomCol(lastTile)
+    console.log('n: ',n)
     if (lastTile!==-1){
         if (n===lastTile){
             if (n>4){
-                document.getElementById(lastTileid[0]).GrowUp()
-                document.getElementById(lastTileid[1]).GrowUp()
+                findid(lastTileid[0]).GrowUp()
+                findid(lastTileid[1]).GrowUp()
             }else{
-                document.getElementById(lastTileid[0]).GrowUp()
+                findid(lastTileid[0]).GrowUp()
             }
             
         }else{
@@ -37,25 +38,14 @@ function NewLine(){
             if (n>4){
                 let c={'5':['1','3'],'6':['2','4']}
 
-                let tile1=document.getElementById(queue[0])
-                queue.splice(0,1)
+                let tile1=createParticleTile(c[n][0])
                 lastTileid.push(tile1.id)
-                tile1.setAttribute('column',c[n][0])
-
-                let tile2=document.getElementById(queue[0])
-                queue.splice(0,1)
+                
+                let tile2=createParticleTile(c[n][1])
                 lastTileid.push(tile2.id)
-                tile2.setAttribute('column',c[n][1])
-
-                tile1.Reset()
-                tile2.Reset()
             }else {
-                let tile1=document.getElementById(queue[0])
-                queue.splice(0,1)
+                let tile1=createParticleTile(n)
                 lastTileid.push(tile1.id)
-                tile1.setAttribute('column',n)
-
-                tile1.Reset()
             }
         }
     }else{
@@ -63,26 +53,14 @@ function NewLine(){
         lastTile=n
         if (n>4){
             let c={'5':['1','3'],'6':['2','4']}
-
-            let tile1=document.getElementById(queue[0])
-            queue.splice(0,1)
+            let tile1=createParticleTile(c[n][0])
             lastTileid.push(tile1.id)
-            tile1.setAttribute('column',c[n][0])
-
-            let tile2=document.getElementById(queue[0])
-            queue.splice(0,1)
+            
+            let tile2=createParticleTile(c[n][1])
             lastTileid.push(tile2.id)
-            tile2.setAttribute('column',c[n][1])
-
-            tile1.Reset()
-            tile2.Reset()
         }else {
-            let tile1=document.getElementById(queue[0])
-            queue.splice(0,1)
+            let tile1=createParticleTile(n)
             lastTileid.push(tile1.id)
-            tile1.setAttribute('column',n)
-
-            tile1.Reset()
         }
 
         

@@ -1,392 +1,301 @@
+const canvastile = document.getElementById('canvastile')
+const ctxt=canvastile.getContext('2d')
+canvastile.width=window.innerWidth
+canvastile.height=window.innerHeight
+
+let index=0
+let tileArray=[]
 
 
-class TileElement extends HTMLElement{
-    constructor(){
-        
-        super()
-    }
-    OnClickTile(e){
-        //Optimisation
-        if (isMobile) {
-            this.removeEventListener('touchstart',this.OnClickTile)
+
+
+class TileElement{
+    constructor(column,first=false){
+        this.id=index
+        index++
+        this.first=first
+        this.column=column-1
+        this.x=this.column*(canvastile.width/4)
+
+        if (!this.first){
+            this.y=-canvastile.height/2
         }else{
-            this.removeEventListener('mousedown',this.OnClickTile)
+            this.y=canvastile.height/4*2
         }
+        
+        this.width=canvastile.width/4
+        this.height=canvastile.height/4
 
-        if (this.getAttribute('first')!=="true"){
-            vibrer()
-            cancelAnimationFrame(this.idTimer)
-            UpdateBar(this.id)
-            addEmitterExplosion(e.target.getBoundingClientRect().x+e.target.getBoundingClientRect().width/2,e.target.getBoundingClientRect().y+e.target.getBoundingClientRect().height/2)
-            addEmitterTile(this.querySelector('div'))
-            //Remove
-            this.style.display='none'
-            queue.push(this.id)
-        }else{
-            vibrer()
-            playing=true
-            PxSpeed=DefaultPxSpeed
-            ChangeSpeed(1)
-            player.embed.unMute()
-            addEmitterExplosion(e.target.getBoundingClientRect().x+e.target.getBoundingClientRect().width/2,e.target.getBoundingClientRect().y+e.target.getBoundingClientRect().height/2)
-            addEmitterTile(this.querySelector('div'))
-            //Remove
-            this.remove()
-        }
+        this.radius=canvastile.height*0.05
+        
+        this.isSlider=false
+        this.isFinish=false
+        this.isClick=false
+        this.sliderOffset=0
 
+        this.touchid=null
     }
-    // MoveDown(){
-    //     this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
-        
-    //     if (this.style.height){
-    //         if (this.istouch){
-                
-    //             let t=this.getElementsByClassName('thumb')[0]
-    //             let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-this.size*(document.body.clientHeight/4)),0)
-    //             t.style.transform='translateY('+String(n)+"px)"
 
-    //             if (this.istouch){
-    //                 if (t.getBoundingClientRect().y<=this.querySelector("div").getBoundingClientRect().y+2 && t.getBoundingClientRect().y!==0 && !completeSliderids.includes(this.id)){
-    //                     scoretext.innerText=Number(scoretext.innerText)+2*this.size
-    //                     this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
-    //                     this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
-    //                     completeSliderids.push(this.id)
-    //                 }   
-    //             }
-    //         }
-    //     }
-    // }
-    MoveDownSmooth(){
-        // this.delta=Date.now()-this.timelastframe
-        // if (this.delta<1000){
-        //     this.PxSpeed=(this.delta)/(1000/60)*PxSpeed
-        // }else{
-        //     this.PxSpeed=DefaultPxSpeed
-        // }
-        // this.timelastframe=Date.now()
-        
-
-        this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))+PxSpeed)+"px)"
-        
-        if (this.style.height){
-            if (this.istouch){
-                
-                let t=this.getElementsByClassName('thumb')[0]
-                let n=(Number(t.style.transform.substring(11,t.style.transform.length-3))-PxSpeed).clamp((-(this.getElementsByClassName('innertile')[0].clientHeight)+document.body.clientHeight/4),0)
-                t.style.transform='translateY('+String(n)+"px)"
-                if (this.istouch){
-                    if (t.getBoundingClientRect().y<=this.querySelector("div").getBoundingClientRect().y+2 && t.getBoundingClientRect().y!==0 && !completeSliderids.includes(this.id)){
-                        scoretext.innerText=Number(scoretext.innerText)+2*this.size
-                        this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
-                        this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
-                        this.getElementsByClassName('ptsSliderInfo')[0].style.display='block'
-                        completeSliderids.push(this.id)
-                    }   
-                }
+    update(){
+        if (!this.first){
+            this.y+=PxSpeed
+        }
+        if (this.isClick){
+            this.sliderOffset+=PxSpeed
+            this.sliderOffset=this.sliderOffset.clamp(0,this.height-canvastile.height/4)
+            if (this.sliderOffset===this.height-canvastile.height/4 && !this.isFinish){
+                this.isFinish=true
+                scoretext.innerText=Number(scoretext.innerText)+2*this.size
             }
         }
+    }
 
-
-        if (Number(this.style.transform.substring(11,this.style.transform.length-3))>=document.body.clientHeight){
-            cancelAnimationFrame(this.idTimer)
-
-            //Optimisation
-            if (!this.getElementsByClassName('thumb')[0] || this.getElementsByClassName('thumb')[0].display==='none'){
-                if (isMobile) {
-                    this.removeEventListener('touchstart',this.OnClickTile)
-                }else{
-                    this.removeEventListener('mousedown',this.OnClickTile)
-                }
-            }else{
-                this.DisableThumb()
-            }
-
-            //Remove
-            this.style.display='none'
-            queue.push(this.id)
-            return 0
-        }
-
-        this.idTimer=requestAnimationFrame(()=>{this.MoveDownSmooth()})
+    drawRect(){
+        ctxt.roundRect(this.x, this.y, this.width, this.height, [this.radius])
         
+        ctxt.fillStyle='#1f0707'
+        ctxt.fill()
+
+        ctxt.strokeStyle='#ca36c3'
+        ctxt.lineWidth=1
+        ctxt.stroke()
     }
-    // EventTouchStart(e){
-    //     this.istouch=true
-    //     this.removeEventListener('touchstart',this.EventTouchStart)
-    //     activeid.push(this.parentElement.parentElement.id)
-    //     UpdateBar(this.parentElement.parentElement.id)
-    // }
-    // EventTouchEnd(e){
-    //     this.istouch=false
-    //     activeid.splice(activeid.indexOf(this.parentElement.parentElement.id),this.parentElement.parentElement.id)
-    //     clickids.push(this.parentElement.parentElement.id)
-    // }
-    // EventMouseDown(e){
-    //     this.istouch=true
-    //     this.removeEventListener('mousedown',this.EventMouseDown)
-    //     activeid.push(this.parentElement.parentElement.id)
-    //     UpdateBar(this.parentElement.parentElement.id)
-    // }
-    // EventMouseUp(e){
-    //     this.istouch=false
-    //     activeid.splice(activeid.indexOf(this.parentElement.parentElement.id),this.parentElement.parentElement.id)
-    //     clickids.push(this.parentElement.parentElement.id)
-    // }
 
-    ActiveThumb(e){
+    draw(){
+        ctxt.beginPath()
+        ctxt.save()
+        
 
-        this.thumb=this.getElementsByClassName('thumb')[0]  
+        ctxt.shadowColor = '#292929'
+        ctxt.shadowBlur = 0
+        ctxt.shadowOffsetX = 0
+        ctxt.shadowOffsetY = 15
+        
+        this.drawRect()
 
-        let e1=(e)=>{
-            this.istouch=true
-            this.thumb.removeEventListener('mousedown',e1)
-            activeid.push(this.id)
-            UpdateBar(this.id)
+        ctxt.restore()
+        
+        this.drawRect()
+        
+        if (this.first){
+            ctxt.font = 'bold 8vw "Titillium Web"'
+            ctxt.fillStyle='white'
+            ctxt.textAlign='center'
+            ctxt.textBaseline='middle'
+            ctxt.fillText('PLAY',this.x+this.width/2,this.y+this.height/2)
         }
-        let e2=(e)=>{
-            this.istouch=true
-            this.thumb.removeEventListener('touchstart',e2)
-            activeid.push(this.id)
-            UpdateBar(this.id)
-        }
-
-        if (isMobile) {
-            this.removeEventListener('touchstart',this.OnClickTile)
-            this.thumb.addEventListener('touchstart',e2)
-
-            this.thumb.addEventListener('touchend',(e)=>{
-                this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),1)
-                clickids.push(this.id)
-            })
-        }else{
-            this.removeEventListener('mousedown',this.OnClickTile)
-            this.thumb.addEventListener('mousedown',e1)
-
-            this.thumb.addEventListener('mouseup',(e)=>{
-                this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),1)
-                clickids.push(this.id)
-            })
-            this.thumb.addEventListener('mouseleave',(e)=>{
-                this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),1)
-                clickids.push(this.id)
-            })
-        }
-    }
-    GrowUp(){
-        if (!this.style.height || this.style.height==="25%"){
-            this.style.height="50%"
-            this.size=1
-
-            // this.querySelector('div').innerHTML=`
-            //     <div class='thumb' style='height:${document.body.clientHeight/4}px;'></div>
-            //     <div class='ptsSliderInfo titillium-web-bold'></div>
-            // `
-
-            this.querySelector('div').getElementsByClassName('thumb')[0].style.display='block'
-            this.querySelector('div').getElementsByClassName('ptsSliderInfo')[0].style.display='block'
-
-            this.thumb=this.getElementsByClassName('thumb')[0]
+        if (this.isSlider){
+            ctxt.beginPath()
+            ctxt.roundRect(this.x, this.y+this.height-canvastile.height/4-this.sliderOffset, canvastile.width/4,canvastile.height/4, [this.radius])
             
-            this.ActiveThumb()
+            ctxt.fillStyle='#fd32f3'
+            ctxt.fill()
+
+            if (this.isFinish){
+                ctxt.beginPath()
+                ctxt.font = '400 3vh "Titillium Web"'
+                ctxt.fillStyle='white'
+                ctxt.textAlign='center'
+                ctxt.textBaseline='middle'
+                
+                const shadows = [
+                    { offsetX: 1, offsetY: 1, blur: 2, color: 'rgb(88, 88, 88)' },
+                    { offsetX: -1, offsetY: -1, blur: 2, color: 'rgb(88, 88, 88)' },
+                    { offsetX: -1, offsetY: 1, blur: 2, color: 'rgb(88, 88, 88)' },
+                    { offsetX: 1, offsetY: -1, blur: 2, color: 'rgb(88, 88, 88)' },
+                    { offsetX: 1, offsetY: 1, blur: 1, color: 'rgb(253, 246, 180)' },
+                    { offsetX: -1, offsetY: -1, blur: 1, color: 'rgb(253, 246, 180)' },
+                    { offsetX: -1, offsetY: 1, blur: 1, color: 'rgb(253, 246, 180)' },
+                    { offsetX: 1, offsetY: -1, blur: 1, color: 'rgb(253, 246, 180)' }
+                ]
+
+                shadows.forEach(shadow => {
+                    ctxt.shadowColor = shadow.color
+                    ctxt.shadowOffsetX = shadow.offsetX
+                    ctxt.shadowOffsetY = shadow.offsetY
+                    ctxt.shadowBlur = shadow.blur
+                    ctxt.fillText("+"+String(2*this.size), this.x+this.width/2, this.y-canvastile.height*0.03)
+                })
+
+                ctxt.shadowColor = 'transparent';
+                ctxt.shadowOffsetX = 0;
+                ctxt.shadowOffsetY = 0;
+                ctxt.shadowBlur = 0;
+
+            }
+        }
+    }
+
+    GrowUp(){
+        if (this.height===canvastile.height/4){
+            this.height+=canvastile.height/4
+            this.y-=canvastile.height/4
+            this.size=1
+            
+            this.isSlider=true
+            // this.ActiveThumb()
         }else{
-            this.style.height="calc(25% + "+this.style.height+")"
+            this.height+=canvastile.height/4
+            this.y-=canvastile.height/4
             this.size+=1
         }
-        this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))-document.body.clientHeight/4)+"px)"
+        // this.style.transform='translateY('+String(Number(this.style.transform.substring(11,this.style.transform.length-3))-document.body.clientHeight/4)+"px)"
 
     }
-    DisableThumb(){
-        this.thumb=this.getElementsByClassName('thumb')[0]  
-
-        let e1=(e)=>{
-            this.istouch=true
-            this.thumb.removeEventListener('mousedown',e1)
-            activeid.push(this.id)
-            UpdateBar(this.id)
-        }
-        let e2=(e)=>{
-            this.istouch=true
-            this.thumb.removeEventListener('touchstart',e2)
-            activeid.push(this.id)
-            UpdateBar(this.id)
-        }
-
-        if (isMobile) {
-            this.thumb.removeEventListener('touchstart',e2)
-
-            this.thumb.removeEventListener('touchend',(e)=>{
-                this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),1)
-                clickids.push(this.id)
-            })
-        }else{
-            this.thumb.removeEventListener('mousedown',e1)
-
-            this.thumb.removeEventListener('mouseup',(e)=>{
-                this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),1)
-                clickids.push(this.id)
-            })
-            this.thumb.removeEventListener('mouseleave',(e)=>{
-                this.istouch=false
-                activeid.splice(activeid.indexOf(this.id),1)
-                clickids.push(this.id)
-            })
-        }
-    }
-    Shrink(){
-        this.style.height="25%"
-        this.size=0
-
-        this.DisableThumb()
-        this.querySelector('div').getElementsByClassName('thumb')[0].style.display='none'
-        this.querySelector('div').getElementsByClassName('thumb')[0].style.transform='translateY(0px)'
-
-        this.querySelector('div').getElementsByClassName('ptsSliderInfo')[0].style.display='none'
-        this.querySelector('div').getElementsByClassName('ptsSliderInfo')[0].style.opacity=0
-
-        if (clickids.includes(this.id)){
-            clickids.splice(clickids.indexOf(this.id),1)
-        }
-        if (completeSliderids.includes(this.id)){
-            completeSliderids.splice(completeSliderids.indexOf(this.id),1)
-        }
-        if (activeid.includes(this.id)){
-            activeid.splice(activeid.indexOf(this.id),1)
-        }
-    }
-    Reset(){
-        this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
-        this.style.display='block'
-
-        this.istouch=false
-        
-        this.Shrink()
-
-        if (isMobile) {
-            this.addEventListener('touchstart',this.OnClickTile)
-        }else{
-            this.addEventListener('mousedown',this.OnClickTile)
-        }
-
-        this.style.gridColumn=this.getAttribute('column')
-        this.style.gridRow=1
-
-        cancelAnimationFrame(this.idTimer)
-        this.timelastframe=0
-        this.id=this.getAttribute('id')
-        if (clickids.includes(this.id)){
-            clickids.splice(clickids.indexOf(this.id),1)
-        }
-        if (completeSliderids.includes(this.id)){
-            completeSliderids.splice(completeSliderids.indexOf(this.id),1)
-        }
-        if (activeid.includes(this.id)){
-            activeid.splice(activeid.indexOf(this.id),1)
-        }
-        this.MoveDownSmooth()
-    }
-    connectedCallback(){
-        
-        this.classList.add('tile')
+}
 
 
-        if (!this.getElementsByClassName('thumb')[0] || this.getElementsByClassName('thumb')[0].display==='none'){
-            this.istouch=false
-            if (isMobile) {
-                this.addEventListener('touchstart',this.OnClickTile)
-            }else{
-                this.addEventListener('mousedown',this.OnClickTile)
-            }
-        }else{
-            if (!isMobile) {
-                this.thumb=this.getElementsByClassName('thumb')[0]
-                if (activeid){
-                    if (isclicking && activeid.includes(this.id)){
-                        this.istouch=true
-                        this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
-
-                        this.thumb.addEventListener('mouseup',(e)=>{
-                            this.istouch=false
-                            activeid.splice(activeid.indexOf(this.id),1)
-                            clickids.push(this.id)
-                        })
-                        this.thumb.addEventListener('mouseleave',(e)=>{
-                            this.istouch=false
-                            activeid.splice(activeid.indexOf(this.id),1)
-                            clickids.push(this.id)
-                        })
-                    }
-                }
-                if (!clickids.includes(this.id)){
-                    this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
-                    this.ActiveThumb()
-                }
-            }else{
-                this.thumb=this.getElementsByClassName('thumb')[0]
-                if (activeid.length){
-                    if (isclicking && activeid.includes(this.id) && !clickids.includes(this.id)){
-                        this.istouch=true
-                        this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
-
-                        this.thumb.addEventListener('touchend',(e)=>{
-                            this.istouch=false
-                            activeid.splice(activeid.indexOf(this.id),1)
-                            clickids.push(this.id)
-                        })
-                    }
-                }
-                if (!clickids.includes(this.id)){
-                    this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
-                    this.ActiveThumb()
-                }
-            }
-
-            if (completeSliderids.includes(this.id)){
-                this.istouch=false
-                this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
-                this.getElementsByClassName('ptsSliderInfo')[0].innerText="+"+2*this.size
-                this.getElementsByClassName('ptsSliderInfo')[0].style.opacity=1
-            }
-
-            this.size=Math.round(this.clientHeight/(document.body.clientHeight/4)-1)
-            
-        }
-
-        this.style.gridColumn=this.getAttribute('column')
-        this.style.gridRow=1
-
-        if (this.getAttribute('first')!=="true"){
-            if (!this.getElementsByClassName('thumb')[0] || this.getElementsByClassName('thumb')[0].display==='none'){
-                this.innerHTML=`
-                <div class="innertile"><div>
-                `
-
-                this.querySelector('div').innerHTML=`
-                    <div class='thumb' style='height:${document.body.clientHeight/4}px; display:none;'></div>
-                    <div class='ptsSliderInfo titillium-web-bold' style=' display:none;'></div>
-                `
-
-            }
-            
-
-            if (!this.style.transform){
-                this.style.transform=`translateY(${-document.body.clientHeight/4}px)`
-            }
-
-            this.MoveDownSmooth()
-
-        }else{
-            this.style.transform=`translateY(${document.body.clientHeight/2}px)`
-            this.innerHTML=`
-            <div class="innertile firsttile"><h2 style="color:white;font-size:8vw;pointer-events:none" class="titillium-web-bold">PLAY</h2><div>
-            `
-
+function handleParticlesTile(){
+    for (let i=0; i<tileArray.length; i++){
+        tileArray[i].update()
+        tileArray[i].draw()
+        if (tileArray[i].y>=canvastile.height){
+            tileArray.splice(i,1)
+            i--
         }
     }
 }
 
-window.customElements.define("game-tile",TileElement)
+function createParticleTile(column,first){
+    tileArray.push(new TileElement(column,first))
+    return tileArray[tileArray.length-1]
+}
+
+
+function animateTileElement(){
+    ctxt.clearRect(0,0,canvastile.width,canvastile.height)
+    
+    handleParticlesTile()
+
+    requestAnimationFrame(animateTileElement)
+}
+
+createParticleTile(2,true)
+
+
+animateTileElement()
+
+
+
+
+// On click
+
+// canvastile.addEventListener('mousedown',(e)=>{
+
+//     for (let i in tileArray){
+//         tileArray[i].isClick=false
+//         if (tileArray[i].isSlider){
+//             let x1=tileArray[i].x
+//             let x2=tileArray[i].x+tileArray[i].width
+//             let y1=tileArray[i].y+tileArray[i].height-canvastile.height/4
+//             let y2=tileArray[i].y+tileArray[i].height+30
+
+//             if (x1<e.clientX && e.clientX<x2 && y1<e.clientY && e.clientY<y2){
+//                 let e=tileArray[i]
+//                 e.isClick=true
+
+//                 UpdateBar(e)
+//             }
+//         }else{
+//             let x1=tileArray[i].x
+//             let x2=tileArray[i].x+tileArray[i].width
+//             let y1=tileArray[i].y-30
+//             let y2=tileArray[i].y+tileArray[i].height+30
+
+//             if (x1<e.clientX && e.clientX<x2 && y1<e.clientY && e.clientY<y2){
+//                 let e=tileArray[i]
+//                 tileArray.splice(i,1)
+//                 i--
+
+//                 UpdateBar(e)
+//                 addEmitterExplosion(e.x+e.width/2,e.y+e.height/2)
+//                 addEmitterTile(e.x,e.y,e.width,e.height,e.radius)
+
+//                 vibrer()
+
+//                 if (e.first){
+//                     setTimeout(()=>{
+//                         playing=true
+//                         PxSpeed=DefaultPxSpeed
+//                         ChangeSpeed(1)
+//                         player.embed.unMute()
+//                     },0)
+//                 }
+//             }
+//         }
+//     }
+// })
+
+// canvastile.addEventListener('mouseup',(e)=>{
+//     for (let i in tileArray){
+//         tileArray[i].isClick=false
+//     }
+// })
+
+
+canvastile.addEventListener('touchstart',(ev)=>{
+    for (let i in tileArray){
+        tileArray[i].isClick=false
+        if (tileArray[i].isSlider){
+            let x1=tileArray[i].x
+            let x2=tileArray[i].x+tileArray[i].width
+            let y1=tileArray[i].y+tileArray[i].height-canvastile.height/4
+            let y2=tileArray[i].y+tileArray[i].height+30
+
+            if (x1<ev.changedTouches[0].clientX && ev.changedTouches[0].clientX<x2 && y1<ev.changedTouches[0].clientY && ev.changedTouches[0].clientY<y2){
+                let e=tileArray[i]
+                e.isClick=true
+                e.touchid=ev.changedTouches[0].identifier
+
+                UpdateBar(e)
+            }
+        }else{
+            let x1=tileArray[i].x
+            let x2=tileArray[i].x+tileArray[i].width
+            let y1=tileArray[i].y-30
+            let y2=tileArray[i].y+tileArray[i].height+30
+
+            if (x1<ev.changedTouches[0].clientX && ev.changedTouches[0].clientX<x2 && y1<ev.changedTouches[0].clientY && ev.changedTouches[0].clientY<y2){
+                let e=tileArray[i]
+                tileArray.splice(i,1)
+                i--
+
+                UpdateBar(e)
+                addEmitterExplosion(e.x+e.width/2,e.y+e.height/2)
+                addEmitterTile(e.x,e.y,e.width,e.height,e.radius)
+
+                vibrer()
+
+                if (e.first){
+                    setTimeout(()=>{
+                        playing=true
+                        PxSpeed=DefaultPxSpeed
+                        ChangeSpeed(1)
+                        player.embed.unMute()
+                    },0)
+                }
+            }
+        }
+    }
+})
+
+canvastile.addEventListener('touchend',(ev)=>{
+    for (let i in tileArray){
+        if (tileArray[i].touchid===ev.changedTouches[0].identifier){
+            tileArray[i].isClick=false
+        }
+    }
+})
+
+
+
+
+
+
+function findid(id){
+    for (let i in tileArray){
+        if (tileArray[i].id===id){
+            return tileArray[i]
+        }
+    }
+}
