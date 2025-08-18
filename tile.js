@@ -180,57 +180,57 @@ animateTileElement()
 
 // On click
 
-// canvastile.addEventListener('mousedown',(e)=>{
+canvastile.addEventListener('mousedown',(e)=>{
 
-//     for (let i in tileArray){
-//         tileArray[i].isClick=false
-//         if (tileArray[i].isSlider){
-//             let x1=tileArray[i].x
-//             let x2=tileArray[i].x+tileArray[i].width
-//             let y1=tileArray[i].y+tileArray[i].height-canvastile.height/4
-//             let y2=tileArray[i].y+tileArray[i].height+30
+    for (let i in tileArray){
+        tileArray[i].isClick=false
+        if (tileArray[i].isSlider){
+            let x1=tileArray[i].x
+            let x2=tileArray[i].x+tileArray[i].width
+            let y1=tileArray[i].y+tileArray[i].height-canvastile.height/4-tileArray[i].sliderOffset
+            let y2=tileArray[i].y+tileArray[i].height+30
 
-//             if (x1<e.clientX && e.clientX<x2 && y1<e.clientY && e.clientY<y2){
-//                 let e=tileArray[i]
-//                 e.isClick=true
+            if (x1<e.clientX && e.clientX<x2 && y1<e.clientY && e.clientY<y2 && tileArray[i].sliderOffset===0){
+                let e=tileArray[i]
+                e.isClick=true
 
-//                 UpdateBar(e)
-//             }
-//         }else{
-//             let x1=tileArray[i].x
-//             let x2=tileArray[i].x+tileArray[i].width
-//             let y1=tileArray[i].y-30
-//             let y2=tileArray[i].y+tileArray[i].height+30
+                UpdateBar(e)
+            }
+        }else{
+            let x1=tileArray[i].x
+            let x2=tileArray[i].x+tileArray[i].width
+            let y1=tileArray[i].y-30
+            let y2=tileArray[i].y+tileArray[i].height+30
 
-//             if (x1<e.clientX && e.clientX<x2 && y1<e.clientY && e.clientY<y2){
-//                 let e=tileArray[i]
-//                 tileArray.splice(i,1)
-//                 i--
+            if (x1<e.clientX && e.clientX<x2 && y1<e.clientY && e.clientY<y2){
+                let e=tileArray[i]
+                tileArray.splice(i,1)
+                i--
 
-//                 UpdateBar(e)
-//                 addEmitterExplosion(e.x+e.width/2,e.y+e.height/2)
-//                 addEmitterTile(e.x,e.y,e.width,e.height,e.radius)
+                UpdateBar(e)
+                addEmitterExplosion(e.x+e.width/2,e.y+e.height/2)
+                addEmitterTile(e.x,e.y,e.width,e.height,e.radius)
 
-//                 vibrer()
+                vibrer()
 
-//                 if (e.first){
-//                     setTimeout(()=>{
-//                         playing=true
-//                         PxSpeed=DefaultPxSpeed
-//                         ChangeSpeed(1)
-//                         player.embed.unMute()
-//                     },0)
-//                 }
-//             }
-//         }
-//     }
-// })
+                if (e.first){
+                    setTimeout(()=>{
+                        playing=true
+                        PxSpeed=DefaultPxSpeed
+                        ChangeSpeed(1)
+                        player.embed.unMute()
+                    },0)
+                }
+            }
+        }
+    }
+})
 
-// canvastile.addEventListener('mouseup',(e)=>{
-//     for (let i in tileArray){
-//         tileArray[i].isClick=false
-//     }
-// })
+canvastile.addEventListener('mouseup',(e)=>{
+    for (let i in tileArray){
+        tileArray[i].isClick=false
+    }
+})
 
 
 canvastile.addEventListener('touchstart',(ev)=>{
@@ -238,12 +238,13 @@ canvastile.addEventListener('touchstart',(ev)=>{
         if (tileArray[i].isSlider){
             let x1=tileArray[i].x
             let x2=tileArray[i].x+tileArray[i].width
-            let y1=tileArray[i].y+tileArray[i].height-canvastile.height/4
+            let y1=tileArray[i].y+tileArray[i].height-canvastile.height/4-tileArray[i].sliderOffset
             let y2=tileArray[i].y+tileArray[i].height+30
 
-            if (x1<ev.changedTouches[0].clientX && ev.changedTouches[0].clientX<x2 && y1<ev.changedTouches[0].clientY && ev.changedTouches[0].clientY<y2){
+            if (x1<ev.changedTouches[0].clientX && ev.changedTouches[0].clientX<x2 && y1<ev.changedTouches[0].clientY && ev.changedTouches[0].clientY<y2 && tileArray[i].sliderOffset===0){
                 let e=tileArray[i]
                 e.isClick=true
+ 
                 e.touchid=ev.changedTouches[0].identifier
 
                 UpdateBar(e)
