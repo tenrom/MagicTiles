@@ -5,7 +5,16 @@ function SetUpMusicinfo(){
     let info=player.embed.getVideoData()
     document.getElementById('title').innerText=info.title
     document.getElementById('author').innerText=info.author
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('Score').innerText=urlParams.get('score') ? urlParams.get('score') : 0
 
+    document.getElementsByClassName('stars')[0].src='Data/Icons/Stars/icon-stars'+(urlParams.get('stars')?urlParams.get('stars'): 0)+'.svg'
+    
+    let pb=0
+    DB.accounts[username].musics.forEach(ytm => {if (ytm.ytid===ytid){pb=ytm.pb}})
+
+    document.getElementById('ScorePB').innerText='PB '+pb
+    document.getElementById('ScoreWR').innerText='WR '+DB.allytmusic[ytid].wr
 
     document.getElementById('LoadingDiv').style.opacity=0
     setTimeout(()=>{

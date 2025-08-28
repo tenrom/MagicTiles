@@ -338,26 +338,10 @@ function addEmitterTile(x,y,width,height,radius){
 
 
 function animateALL(){
-    fps=Math.round(1000 / (Date.now()-timelastframe))
-    lastdelta=delta
-    delta=(Date.now()-timelastframe)
-    PxSpeed*=(delta/(1000/60))/(lastdelta/(1000/60))
-
-    timelastframe=Date.now()
-    requestAnimationFrame(animateALL)
-
-    if (timelastframe>999 && fps>10){
-        dif=Math.round(delta/(1000/60)).clamp(1,999)
-    }   
-    
-    console.log(dif)
-    
-    // for (let i=0;i<dif;i++){
-        
-    // }
     animate()
     animateTile()
-    animateTilesMovement()
+
+    requestAnimationFrame(animateALL)
 }
 
 
