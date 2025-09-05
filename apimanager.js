@@ -15,7 +15,7 @@ function CallAPI(url,after,method="GET"){
 const repo = "MagicTilesDB"
 const owner = "tenrom"
 const path = "DataBase.json"
-const token = "11BUKKBDQ08OOLgZq3R3NZ_fM7nXlZmzCaWZdbvVeVZEOfdc9VibiAlCkCbVjXkREJ7MJRNAKKqdU2t17L"
+const token = "11BUKKBDQ0HYJ6BzElrGPS_hMiJNZ4yu6IzDSvM7EgrtIkDtSA4JBAbSAolCOMB89EM5N6AD5KWDPvXVIz"
 let DB={}
 
 
@@ -115,4 +115,5 @@ function Connect(user,pass){
         username=user
         password=pass
     }
+
 }
